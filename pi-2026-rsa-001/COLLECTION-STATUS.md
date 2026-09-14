@@ -182,3 +182,43 @@ Two deviations, both deliberate:
 2. **3 pages, not the 2 the handoff specified for the full version.** The house VSEC standard is 4–8 pages, so 3 is tight rather than long. The 2-page constraint is met by the Brief.
 
 The Brief and Annex A predate the house-style pass and still use em-dashes. They were not retrofitted, since the owner had already approved that format. Say the word and they get the same treatment.
+
+---
+
+## 8. Rev C — neighborhood-only scoping
+
+At the owner's direction, Rev C limits the evidence base to the home, the Lake Harriet parkway, and the four ring neighborhoods (East Harriet, Lynnhurst, Fulton, Linden Hills). All citywide, statewide and national comparators were removed: MCCA midyear figures, the MN BCA Uniform Crime Report, "Raise the Age", Loring Park, Elm Creek Park Reserve, the Whittier/Lowry Hill East robbery alert, and the Ferrier death (5400 block of 43rd Ave S, ~4 mi east, outside the ring). Rev B retains them.
+
+### The composite did not move
+
+| Category | Rev B | Rev C | Weight | Contribution |
+|---|---|---|---|---|
+| A · Site and Property | 31 | 31 | 25% | 7.75 |
+| B · Threat Intelligence | 32 (citywide-inclusive) | **32 (local only)** | 32% | 10.24 |
+| C · Vulnerability and Environmental | 43 (6 factors) | **42.6 (7 factors)** | 43% | 18.31 |
+| **Composite** | **36** | **36** | | Tier 3 · MODERATE |
+
+A score that survives removal of its broadest inputs rests on the local record rather than on background trend. That robustness is a stronger result than the Rev B number it reproduces.
+
+### Two factors added
+
+- **B · Local vehicular threat on or near the route — 45.** 1 May 2026, East Harriet: stolen Hyundai ran a stop sign at 80 mph with headlights off at W 46th St and Aldrich Ave S, struck a State Patrol squad; trooper fractured fibula and scapula, a passenger took a compound leg fracture and a brain bleed. Precedent for the same mechanism reaching a runner on the parkway itself: 5 Nov 2020, minivan left the roadway and struck a jogger before entering the lake.
+- **C · Active construction on the route corridor — 40.** Storm sewer reconstruction on Oliver Ave between W 50th St and Lake Harriet Parkway, and W 50th between Oliver and Penn, began 13 Jul 2026 and runs into summer 2027. It changes footing, lighting and sightlines on part of the route through the coming winter.
+
+### Three dating failures caught
+
+| Claim | Reads as | Actually |
+|---|---|---|
+| "5 of 7 carjackings ringing Lake Harriet, Nov 14–25" | In-window | **Nov 2021** |
+| MPD 5th Pct alert, victims "alone… either walking" | Current, on-point | Cites Insp. **Katie Blackwell**, who left that command **Aug 2023**; names Lowry Hill East and Whittier, outside the ring |
+| Band shell shooting | "October 2026" per a search summary | **24 Oct 2023** per charging records |
+
+All three would have passed a casual read, and all three described exactly the kind of incident the owner asked about. Date verification, not collection volume, is the binding constraint on this assessment.
+
+### Reddit is permanently closed to Claude
+
+A domain-restricted search returns a hard refusal, not an empty result: `The following domains are not accessible to our user agent: ['reddit.com']`. This is not specific to this container. No Claude session can reach Reddit. Combined with Nextdoor's login wall, the resident-forum layer can only be collected by the owner.
+
+### Sources excluded during this revision
+
+Searches for neighborhood-level crime returned CrimeGrade, AreaVibes, NeighborhoodScout, Niche, Safemap, SpotCrime and minneapoliscrime.com, carrying figures such as a Lynnhurst "A+ safety grade", "118 thefts / 87 vandalism / 15 assaults / 15 burglaries", "22.50 property crimes per 1,000", and an East Harriet "88.8/100 safety score" with a "53% increasing trend". All were discarded per the standing exclusion rule. None appear in any deliverable.
