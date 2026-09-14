@@ -147,3 +147,38 @@ python3 -m weasyprint "docs/<file>.html" "pdf/<file>.pdf"
 ```
 
 Both deliverables verified at **2 pages**. Footer is a `@page` margin box — it does not orphan the way Chromium print does. "Human BBY" is specified and falls back to a system sans where unavailable.
+
+---
+
+## 7. Doc set
+
+| Document | Format | Pages | Role |
+|---|---|---|---|
+| `PI-2026-RSA-001 Residential Threat Assessment` | HTML + PDF | 3 | **Main product.** Full scored matrix, 15 factors across 3 weighted categories, banding table, sensitivity test, sources. |
+| `PI-2026-RSA-001 Residential Threat Assessment (Brief)` | HTML + PDF | 2 | Plain-language version. Verdict banner, finding cards, run section. The format the owner preferred. |
+| `PI-2026-RSA-001-A Media and Online Sentiment` | HTML + PDF | 2 | Annex A. Correction notice, in-window media table, forum-layer collection plan. |
+
+### Scoring matrix (main product, Section 05)
+
+Factors score 0–100. Category score = unweighted mean of its factors. Composite = weighted sum.
+
+| Category | Weight | Score | Contribution |
+|---|---|---|---|
+| A · Site and Property | 25% | 31 | 7.75 |
+| B · Threat Intelligence | 32% | 32 | 10.24 |
+| C · Vulnerability and Environmental | 43% | 43 | 18.49 |
+| **Composite** | | **36** | **Tier 3 · MODERATE** |
+
+Banding: 81–100 Tier 1 CRITICAL · 61–80 Tier 2 HIGH · 36–60 Tier 3 MODERATE · 21–35 Tier 4 LOW · 0–20 Tier 5 MINIMAL.
+
+**Sensitivity test.** Removing the pre-dawn run leaves A and B unchanged and reduces C to its ambient environmental residue (~18). Composite becomes `(0.25 × 31) + (0.32 × 32) + (0.43 × 18) = 26`, which is **Tier 4 LOW**. This makes the handoff's central claim arithmetically demonstrable rather than asserted: one behavior moves the assessment across a tier boundary and nothing else in the matrix does.
+
+### House-style deviations, stated
+
+The main product follows the `protective-intelligence` house standard: no em-dashes, no banned words, no hedge phrases, no transition-word openers, inline source-plus-date, five-tier risk framing, "PI assesses" for analytic judgment. Validated mechanically (0 em-dashes, 0 banned words, 0 hedges).
+
+Two deviations, both deliberate:
+1. **Body set at 7.95pt, not the 11pt house standard.** A 15-factor matrix with an 8-row incident table will not hold a sensible page budget at 11pt. Raising to 11pt roughly doubles the page count.
+2. **3 pages, not the 2 the handoff specified for the full version.** The house VSEC standard is 4–8 pages, so 3 is tight rather than long. The 2-page constraint is met by the Brief.
+
+The Brief and Annex A predate the house-style pass and still use em-dashes. They were not retrofitted, since the owner had already approved that format. Say the word and they get the same treatment.
