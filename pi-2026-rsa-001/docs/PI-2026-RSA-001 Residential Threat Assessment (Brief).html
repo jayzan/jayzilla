@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PI-2026-RSA-001 — Residential Threat Assessment (Brief)</title>
+<style>
+  :root{
+    --bby-blue:#0046BE;
+    --bby-dark:#001E73;
+    --bby-yellow:#FFE000;
+    --ink:#14181F;
+    --mute:#5A6270;
+    --rule:#D6DBE3;
+    --wash:#F4F6FA;
+    --low:#1B7F4B;
+    --mod:#B26A00;
+    --high:#B3261E;
+  }
+  @page{
+    size: Letter;
+    margin: 0.45in 0.45in 0.62in 0.45in;
+    @bottom-left{
+      content:"PI-2026-RSA-001 · CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT";
+      font-family:'Human BBY','HumanBBY','Helvetica Neue',Arial,sans-serif;
+      font-size:6.4pt; color:#5A6270; letter-spacing:.02em;
+    }
+    @bottom-right{
+      content:"Page " counter(page) " of " counter(pages);
+      font-family:'Human BBY','HumanBBY','Helvetica Neue',Arial,sans-serif;
+      font-size:6.4pt; color:#5A6270;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Human BBY','HumanBBY','Helvetica Neue',Arial,sans-serif;
+    color:var(--ink); font-size:8.1pt; line-height:1.26; margin:0;
+  }
+  .masthead{border-top:4px solid var(--bby-blue); padding-top:7px; margin-bottom:9px;}
+  .brandrow{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .brand{font-size:10.4pt; white-space:nowrap; font-weight:800; color:var(--bby-blue); letter-spacing:-.015em;}
+  .brand span{color:var(--bby-dark); font-weight:600;}
+  .classline{flex:0 0 auto;
+    font-size:6.3pt; font-weight:700; letter-spacing:.09em; color:var(--bby-dark);
+    background:var(--bby-yellow); padding:2.5px 6px; border-radius:2px; white-space:nowrap;
+  }
+  h1{font-size:14pt; margin:8px 0 2px; letter-spacing:-.02em; color:var(--bby-dark);}
+  .sub{font-size:8.2pt; color:var(--mute); margin:0 0 9px;}
+  .meta{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border:1px solid var(--rule); border-radius:3px; overflow:hidden; margin-bottom:10px;
+  }
+  .meta div{padding:3.6px 7px; border-right:1px solid var(--rule); background:var(--wash);}
+  .meta div:last-child{border-right:0;}
+  .meta b{display:block; font-size:6.2pt; letter-spacing:.08em; color:var(--mute); text-transform:uppercase; margin-bottom:1px;}
+  .meta span{font-size:8pt; font-weight:600;}
+
+  .verdict{
+    border:1.5px solid var(--bby-blue); border-left:6px solid var(--bby-blue);
+    border-radius:3px; padding:7px 10px; margin-bottom:8px; background:#F7F9FF;
+  }
+  .verdict .band{font-size:12.5pt; font-weight:800; color:var(--bby-dark); letter-spacing:-.01em;}
+  .verdict .band em{font-style:normal; color:var(--mod);}
+  .verdict p{margin:4px 0 0; font-size:8.5pt;}
+  .verdict .kicker{font-size:6.3pt; letter-spacing:.09em; text-transform:uppercase; color:var(--bby-blue); font-weight:700; margin-bottom:2px;}
+
+  h2{
+    font-size:8pt; letter-spacing:.09em; text-transform:uppercase; color:var(--bby-dark);
+    margin:8px 0 4px; padding-bottom:2px; border-bottom:1.5px solid var(--bby-yellow);
+  }
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:5.5px;}
+  .card{border:1px solid var(--rule); border-radius:3px; padding:5.5px 8px; background:#fff;}
+  .card h3{margin:0 0 3px; font-size:8.3pt; color:var(--bby-dark);}
+  .card p{margin:0; font-size:7.7pt;}
+  .card .lvl{
+    float:right; font-size:6.2pt; font-weight:800; letter-spacing:.07em;
+    padding:1.5px 5px; border-radius:2px; color:#fff;
+  }
+  .lv-low{background:var(--low);} .lv-mod{background:var(--mod);} .lv-high{background:var(--high);}
+
+  .tag{font-size:6.3pt; font-weight:800; letter-spacing:.05em; color:var(--bby-blue); vertical-align:.12em;}
+  .tag-a{color:var(--mute);} .tag-q{color:var(--high);}
+
+  tr{break-inside:avoid; page-break-inside:avoid;}
+  table{width:100%; border-collapse:collapse; font-size:7.5pt; margin-top:2px;}
+  th{
+    text-align:left; font-size:6.3pt; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--mute); border-bottom:1px solid var(--rule); padding:3px 5px 3px 0; font-weight:700;
+  }
+  td{padding:2.7px 5px 2.7px 0; border-bottom:1px solid #EDEFF4; vertical-align:top;}
+  td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .up{color:var(--high); font-weight:700;} .down{color:var(--low); font-weight:700;}
+
+  ul{margin:3px 0 0; padding-left:14px;}
+  li{margin-bottom:1.9px;}
+  .run{border:1px solid var(--rule); border-top:3px solid var(--bby-blue); border-radius:3px; padding:6px 9px; background:#FCFDFF;}
+  .corr{border:1px solid #E7C9C6; border-left:5px solid var(--high); border-radius:3px; padding:6px 9px; background:#FDF6F5; margin-top:4px;}
+  .corr b{color:var(--high);}
+  .gap{border:1px solid var(--rule); border-left:5px solid var(--bby-yellow); border-radius:3px; padding:6px 9px; background:#FFFDF2;}
+  .foot{margin-top:11px; padding-top:6px; border-top:1px solid var(--rule); font-size:6.6pt; color:var(--mute);}
+  .legend{font-size:6.6pt; color:var(--mute); margin-top:4px;}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brandrow">
+    <div class="brand">Best Buy <span>| Protective Intelligence &amp; Investigations</span></div>
+    <div class="classline">CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT</div>
+  </div>
+</div>
+
+<h1>Residential Threat Assessment — Brief</h1>
+<p class="sub">4889 E Lake Harriet Parkway, Minneapolis, MN 55419 · Personal residential due-diligence · Core question: is a solo 5:30 a.m. run on the parkway safe?</p>
+
+<div class="meta">
+  <div><b>Document</b><span>PI-2026-RSA-001 · Rev B</span></div>
+  <div><b>Assessment Window</b><span>14 Sep 2025 – 14 Sep 2026</span></div>
+  <div><b>Date of Issue</b><span>14 Sep 2026</span></div>
+  <div><b>Jurisdiction</b><span>MPD 5th Pct · MPRB Park Police</span></div>
+</div>
+
+<div class="verdict">
+  <div class="kicker">Composite Assessment</div>
+  <div class="band">MODERATE — <em>36 / 100</em></div>
+  <p><b>The neighborhood is safe. The run is the risk.</b> Residential and ambient-neighborhood risk remain <b>LOW</b>. The composite is carried almost entirely by one activity-specific vulnerability: solo, pre-dawn, fixed-route running in full darkness across a patrol-coverage seam. Strip that activity and the score drops to LOW. <b>Zero verified violent incidents occurred on the Lake Harriet parkway inside the 365-day window.</b> That is an absence of reporting, not a certification of safety.</p>
+</div>
+
+<h2>What changed since Rev A</h2>
+<div class="corr">
+  <p><b>CORRECTION APPLIED.</b> The prior annex carried a Southwest Voices statistic — <i>"5 of the 7 carjackings ringing Lake Harriet occurred Nov 14–25"</i> — presented as in-window. <b>It is from November 2021</b> and has been withdrawn from the current assessment. Confirmed against three independently dated sources: Axios Twin Cities (9 Nov 2021), MinnPost (Nov 2021), and the Star Tribune 2021 carjacking-by-neighborhood map. The same Southwest Voices piece dates its comparison cluster to "a ten-day stretch of November 2021." <span class="tag">[S]</span> — the article's own byline could not be opened directly from this environment (egress blocked), so the 2021 dating rests on corroboration rather than on the byline itself. <b>Net effect: no carjacking cluster is attributable to the assessment window.</b> The overnight vehicle-break-in pattern is separate, verified, and remains in force.</p>
+</div>
+
+<h2>Findings</h2>
+<div class="cards">
+  <div class="card">
+    <span class="lvl lv-low">LOW</span>
+    <h3>A · Site &amp; Property <span class="tag">[V]</span></h3>
+    <p>~7,606 sq ft, built 2020 on a 1907 teardown. Marketed $3.7M–$4.9M across multiple 2025–26 MLS numbers with full interior photography. High-value, publicly indexed lakefront raises burglary target appeal <i>independently</i> of low area crime. Ownership conflict unresolved: aggregator shows a 2018 sale to named owners against active 2025–26 re-listings. <span class="tag tag-q">[?]</span></p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-low">LOW</span>
+    <h3>B · Neighborhood Baseline <span class="tag">[V][S]</span></h3>
+    <p>Lynnhurst / East Harriet boundary, ~120 sq blocks, ~80% pre-1940 housing, ~8–10% rental. Among the lowest-crime areas of Minneapolis; serious violence concentrates 6–7 mi away (North Mpls, Phillips, Lake St). MN statewide violent crime fell to 226/100k in 2025 — lowest since 2019. <b>Note:</b> BCA issued an amended 2025 UCR (statewide murders revised 130→132; Champlin agg-assaults added). Direction of travel is unaffected.</p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-mod">MODERATE</span>
+    <h3>C · The 5:30 a.m. Run <span class="tag tag-a">[A]</span></h3>
+    <p><b>This is the whole score.</b> Solo + pre-dawn + full darkness + fixed, predictable route + a seam between MPD 5th Precinct and MPRB Park Police coverage. The nearest exact-match precedent is <b>Sep 2015</b>: a solo runner grabbed from behind and chased at 5:30 a.m. on W. Lake Harriet Pkwy near Sheridan Ave S. Exact time, place and activity match — but a single data point over ten years old. It establishes feasibility, not frequency.</p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-mod">MODERATE</span>
+    <h3>D · Property-Crime Pattern <span class="tag">[V]</span></h3>
+    <p>Overnight vehicle window-smashing hit the 5th Precinct repeatedly through 2025 <b>and 2026</b>, including Linden Hills just NW of the lake. Escalating and in-window: ≥87 vehicles in a single night across 9 locations (2–7 a.m., late Aug 2026); 200+ damage cases in the latest wave; ~475 in one month. Offenders identified as juveniles aged 11–16. <b>Threatens parked cars, not runners.</b></p>
+  </div>
+</div>
+
+<h2>Minneapolis citywide trend, H1-2026 vs H1-2025 <span class="tag">[V]</span></h2>
+<table>
+  <tr><th>Offense</th><th class="num">H1-2025</th><th class="num">H1-2026</th><th class="num">Change</th><th>Against national (66 cities)</th></tr>
+  <tr><td>Homicide</td><td class="num">26</td><td class="num">25</td><td class="num down">−3.8%</td><td>Aligned — national −17.2%</td></tr>
+  <tr><td>Robbery</td><td class="num">502</td><td class="num">404</td><td class="num down">−19.5%</td><td>Aligned — national −16.6%</td></tr>
+  <tr><td>Rape</td><td class="num">214</td><td class="num">252</td><td class="num up">+17.8%</td><td><b>Diverges</b> — national −6.2%</td></tr>
+  <tr><td>Aggravated assault</td><td class="num">1,346</td><td class="num">1,518</td><td class="num up">+12.8%</td><td><b>Diverges</b> — national −5.7%</td></tr>
+</table>
+<p class="legend">Source: Major Cities Chiefs Association, Violent Crime Report — 2026 &amp; 2025 Midyear (released 1 Aug 2026); reported via KSTP. The two categories that rose are the two most relevant to a solo runner, and both run counter to the national direction. This is a <b>citywide</b> signal, not a Lake Harriet signal — no in-window parkway incident supports localizing it. It is the single strongest argument against treating the lake's clean in-window record as dispositive.</p>
+
+<h2>The run — what actually drives the risk <span class="tag tag-a">[A]</span></h2>
+<div class="run">
+  <ul>
+    <li><b>Darkness is the variable, not the lake.</b> On 14 Sep, Minneapolis civil twilight begins ~06:20; by late autumn a 5:30 a.m. start is in full dark for the entire run. The route's risk profile changes month to month while the route itself does not.</li>
+    <li><b>Predictability compounds it.</b> A fixed route at a fixed time is the one factor fully under the owner's control and the one that most reduces the value of a low base rate. Vary start time ±20 min and alternate direction.</li>
+    <li><b>Patrol seam.</b> The parkway is Park Board property patrolled by MPRB Park Police; the adjacent residential blocks are MPD 5th Precinct. Park Patrol Agents concentrate on lakes and parkways <i>in summer months</i>. A 5:30 a.m. winter run sits at the thinnest point of both coverages.</li>
+    <li><b>Offender-presence overlap — encounter risk, not violence risk.</b> The documented vehicle-break-in crews operate 2–7 a.m. in these exact neighborhoods. A 5:30 a.m. run overlaps that window. This does <b>not</b> raise the violence estimate — these offenders target parked cars and flee people. It means an <i>encounter</i> with someone committing a crime is plausible. The correct response is disengagement and distance, never confrontation. <b>Category C is not inflated on this basis.</b></li>
+    <li><b>Structural persistence factor.</b> Minnesota's "Raise the Age" law took effect 1 Aug 2026: children under 13 cannot be charged, prosecuted, or detained, with no exceptions. Offenders in the local sprees have included 11-year-olds. Expect the property-crime pattern to persist rather than resolve through enforcement. <span class="tag">[V]</span></li>
+    <li><b>Conditional — resolve before finalizing.</b> The rape-category increase above is the most activity-relevant trend line, but its weight depends on the runner's own risk profile, which this assessment does not have on record. <span class="tag tag-q">[?]</span></li>
+  </ul>
+</div>
+
+<h2>Context declined for scoring <span class="tag tag-a">[A]</span></h2>
+<p>Three in-window events were reviewed and <b>excluded</b> from the local score, stated here so the exclusion is visible rather than silent. <b>(1)</b> Loring Park mass shooting, 2 Sep 2026 — 4 mi north, 1st Precinct, not a distributed local signal. <b>(2)</b> Annunciation church shooting, 27 Aug 2025 — drives the 5th Precinct's YoY shooting-victim increase single-handedly; a separate neighborhood, and it falls just outside the window. <b>(3)</b> Elm Creek Park Reserve, 31 Aug 2026 — a lone woman assaulted on an early-morning park trail, suspect not apprehended. Maple Grove, ~15 mi NW, different jurisdiction and different park system; it contributes <b>nothing</b> to this location's base rate. It is noted only because it matches the <i>activity profile</i> — solo, early morning, park trail — and that profile is what this assessment is scoring.</p>
+
+<h2>Open gaps — what this assessment still cannot tell you</h2>
+<div class="gap">
+  <ul>
+    <li><b>[HIGH] Incident-level data, ¼-mile radius, 365 days — STILL OPEN.</b> The intended close was a geofenced query against the City's ArcGIS FeatureServer (org <code>79kfd2K6fskCAkyg</code>, layers <code>crime_data_2025</code> / <code>Police_Incidents_2026</code>; endpoint existence confirmed). <b>The query could not be executed:</b> this environment's egress policy returns 403 on every non-package host, and both direct HTTP and the fetch tooling are blocked. This requires either a network policy permitting <code>services1.arcgis.com</code> and <code>opendata.minneapolismn.gov</code>, or a manual pull. <b>This remains the single most load-bearing gap.</b></li>
+    <li><b>[HIGH] Two data requests are needed, not one.</b> The drafted MGDPA request addresses MPD Records only — which would <b>miss the parkway itself</b>. The running surface is Park Board jurisdiction. A parallel request must go to the <b>Minneapolis Park &amp; Recreation Board</b> (Responsible Authority: Jennifer Ringold; public-data request form at minneapolisparks.org). MPRB also publishes Park Police Incident Summaries directly. <span class="tag">[V]</span></li>
+    <li><b>[HIGH] Physical route recon — owner-only.</b> Walk or drive the intended route once at 5:30 a.m. in the current season: lighting, sightlines, cover, isolated stretches, phone signal. No database substitutes for this.</li>
+    <li><b>[MED] Predatory-offender proximity.</b> MN DOC Level-3 registrant search and BCA non-compliant search against the address. Interactive lookups; not reachable from this environment.</li>
+    <li><b>[MED] Ownership / occupancy conflict.</b> Resolve via Hennepin County property and recorder portals.</li>
+    <li><b>[HIGH] Resident-forum layer — STILL OPEN, and not closable here.</b> Nextdoor 55419 and Reddit require an authenticated browser session. No browser-automation MCP carrying the owner's cookies is wired into this environment, and egress to both domains is blocked outright. Chromium is present but has no route to the network and no session. <b>This must be run by the owner in their own browser.</b></li>
+  </ul>
+</div>
+
+<div class="foot">
+  <b>Scoring basis.</b> Analyst judgment adapted from the Best Buy executive-protection threat matrix. Category weights: Site &amp; Property 25% · Threat Intelligence 32% · Vulnerability &amp; Environmental 43%. Movement from Rev A (34) to Rev B (36) reflects the H1-2026 divergence in rape and aggravated assault and the confirmed persistence of the property-crime pattern, offset by withdrawal of the 2021 carjacking statistic. <b>This movement is within the instrument's noise; the band — MODERATE — is the finding, not the number.</b> Not a calibrated instrument; a directional indicator.<br>
+  <b>Source tags.</b> [V] verified primary · [S] reliable secondary · [A] analysis · [?] gap. Consumer crime-score aggregators (CrimeGrade, AreaVibes, NeighborhoodScout, minneapoliscrime.com, Safemap) returned mutually inconsistent figures and are <b>excluded</b> throughout. Typeface: Human BBY specified; substituted at render time where unavailable.<br>
+  <b>Standing caveat.</b> Absence of news coverage is not confirmation of safety. Every "no incidents found" statement in this document means <i>no incident was reported in an accessible source</i> — nothing more.
+</div>
+
+</body>
+</html>
