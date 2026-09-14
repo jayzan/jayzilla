@@ -222,3 +222,44 @@ A domain-restricted search returns a hard refusal, not an empty result: `The fol
 ### Sources excluded during this revision
 
 Searches for neighborhood-level crime returned CrimeGrade, AreaVibes, NeighborhoodScout, Niche, Safemap, SpotCrime and minneapoliscrime.com, carrying figures such as a Lynnhurst "A+ safety grade", "118 thefts / 87 vandalism / 15 assaults / 15 burglaries", "22.50 property crimes per 1,000", and an East Harriet "88.8/100 safety score" with a "53% increasing trend". All were discarded per the standing exclusion rule. None appear in any deliverable.
+
+---
+
+## 9. Rev D — 5-mile radius, strict 365-day window
+
+Owner narrowed the Residential Threat Assessment to events, news and crime activity **within a 5-mile radius**, **trailing 365 days only**. Two filters applied in order: event date inside 14 Sep 2025 – 14 Sep 2026 (publication date does not qualify an item), then distance within ~5 mi. Distances estimated from street geography, approximate — no geocoding service was reachable.
+
+**16 qualifying events. None on the Lake Harriet parkway.** Nearest in-window event of any kind is the 1 May 2026 vehicle collision at ~1 mi. Nearest violent crime is the 21 Jun 2026 Uptown homicide at ~2.5 mi.
+
+| Category | Rev C (neighborhood) | Rev D (5 mi) | Weight |
+|---|---|---|---|
+| A · Site and Property | 31.0 | 31.0 | 25% |
+| B · Threat Intelligence | 32.0 | **34.8** | 32% |
+| C · Vulnerability and Environmental | 42.6 | **42.9** | 43% |
+| **Composite** | 36 | **37** | Tier 3 · MODERATE |
+
+Score history: Rev A 34 · Rev B 36 · Rev C 36 · Rev D 37. **Four scopes, one band.** Sensitivity test unchanged in direction: removing the pre-dawn run yields 27, Tier 4 LOW.
+
+### What the strict window costs
+
+It removes the only exact time/place/activity match in the file: the **Sep 2015** solo runner grabbed at 05:30 on W Lake Harriet Pkwy near Sheridan Ave S. Also removed: the **Jul 2017** escalation series on this lake corridor, and the **Nov 2020** minivan strike that injured a jogger on this parkway. Category C is now carried by structural conditions rather than precedent. The resulting picture is *less informative about the specific question asked*, not safer. Rev C retains the historical record.
+
+### Five items excluded on date
+
+Each reads as current and on-point; each was caught by checking a primary report.
+
+| Item | Appears | Actual |
+|---|---|---|
+| "5 of 7 carjackings ringing Lake Harriet" | In window | **Nov 2021** |
+| MPD alert, victims "alone… either walking" | Current | Cites Insp. Katie Blackwell, left command **Aug 2023** |
+| Band shell shooting | "Oct 2026" per search summary | **24 Oct 2023** |
+| "Rise in crime along Lake Nokomis, Minnehaha Creek" | Current warning, creek passes this lake | **Feb 2021** |
+| "Three arrested after string of robberies in Uptown" | In window | **Sep 2024** |
+
+### One exclusion worth naming
+
+**Annunciation church shooting** — ~1.5 mi, comfortably inside the radius, and it drives the 5th Precinct YoY shooting-victim increase single-handedly. It occurred **27 Aug 2025**, eighteen days before the window opens. Under the owner's filters it does not qualify. Named in the document so the omission is visible rather than silent.
+
+### Excluded on distance
+
+Elm Creek Park Reserve (Maple Grove, ~15 mi) · North Minneapolis pursuit crash at N Lyndale & 41st Ave N (~7 mi) · Boom Island and NE Minneapolis break-in sites (at or beyond the boundary).
