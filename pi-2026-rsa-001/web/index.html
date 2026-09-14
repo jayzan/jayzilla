@@ -1,0 +1,475 @@
+<title>Lake Harriet Threat Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bby-blue:#0046BE; --bby-deep:#001E73; --bby-mark:#FFE000;
+  --ground:#FBFCFE; --surface:#FFFFFF; --sunk:#F1F4FA;
+  --ink:#0E1420; --muted:#5A6478; --rule:#D8DEE9; --rule-2:#E9EDF4;
+  --accent:#0046BE;
+  --tier3:#B26A00; --tier3-bg:#FFF7E8;
+  --low:#1B7F4B; --low-bg:#EFF8F2;
+  --crit:#B3261E; --crit-bg:#FDF3F2;
+  --near:#B3261E; --mid:#B26A00; --far:#5A6478;
+  --shadow:0 1px 2px rgba(14,20,32,.05), 0 8px 24px -16px rgba(14,20,32,.28);
+  --display:'Human BBY 45 Light','Archivo',system-ui,sans-serif;
+  --body:'Human BBY 45 Light','IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B0F17; --surface:#131926; --sunk:#0E141F;
+    --ink:#E7ECF4; --muted:#93A0B8; --rule:#263144; --rule-2:#1C2434;
+    --bby-blue:#5B8DEF; --bby-deep:#A8C4FF; --accent:#5B8DEF;
+    --tier3:#E9A23B; --tier3-bg:#241A09;
+    --low:#4FB980; --low-bg:#0D1C14;
+    --crit:#F2736A; --crit-bg:#25110F;
+    --near:#F2736A; --mid:#E9A23B; --far:#93A0B8;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B0F17; --surface:#131926; --sunk:#0E141F;
+  --ink:#E7ECF4; --muted:#93A0B8; --rule:#263144; --rule-2:#1C2434;
+  --bby-blue:#5B8DEF; --bby-deep:#A8C4FF; --accent:#5B8DEF;
+  --tier3:#E9A23B; --tier3-bg:#241A09;
+  --low:#4FB980; --low-bg:#0D1C14;
+  --crit:#F2736A; --crit-bg:#25110F;
+  --near:#F2736A; --mid:#E9A23B; --far:#93A0B8;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+.classbar{position:sticky; top:0; z-index:20; background:var(--bby-mark); color:#1A1400;
+  font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.14em;
+  text-align:center; padding:6px 16px; text-transform:uppercase;}
+.wrap{max-width:1060px; margin:0 auto; padding-inline:20px; padding-block:0 72px;}
+header.doc{padding-block:40px 28px; border-bottom:3px solid var(--accent);}
+.org{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent); font-weight:500;}
+h1{font-family:var(--display); font-weight:800; letter-spacing:-.025em;
+  font-size:clamp(30px,6vw,52px); line-height:1.02; margin:12px 0 10px; text-wrap:balance;
+  color:var(--bby-deep);}
+.addr{font-size:clamp(15px,2.2vw,18px); color:var(--muted); max-width:62ch; margin:0;}
+.addr b{color:var(--ink); font-weight:600;}
+.docmeta{display:flex; flex-wrap:wrap; gap:0; margin-top:24px;
+  border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:var(--surface);}
+.docmeta div{flex:1 1 148px; padding:11px 14px; border-right:1px solid var(--rule);}
+.docmeta div:last-child{border-right:0;}
+.docmeta dt{font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 3px;}
+.docmeta dd{margin:0; font-weight:600; font-size:14.5px; font-variant-numeric:tabular-nums;}
+section{padding-block:38px 0;}
+h2{font-family:var(--display); font-weight:700; letter-spacing:-.015em;
+  font-size:clamp(20px,3.4vw,27px); margin:0 0 4px; color:var(--bby-deep); text-wrap:balance;}
+.eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin:0 0 6px;}
+p{margin:0 0 14px; max-width:68ch;}
+.lede{font-size:17.5px; max-width:64ch;}
+.verdict{margin-top:28px; background:var(--tier3-bg);
+  border:1px solid var(--tier3); border-radius:12px;
+  padding:clamp(18px,3vw,26px); box-shadow:var(--shadow);}
+.vtop{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 18px;}
+.vband{font-family:var(--display); font-weight:800; font-size:clamp(30px,6vw,44px);
+  line-height:1; color:var(--tier3); letter-spacing:-.02em;}
+.vscore{font-family:var(--mono); font-size:15px; color:var(--muted); font-variant-numeric:tabular-nums;}
+.verdict p{margin:14px 0 0; max-width:72ch;}
+.scale{margin-top:24px;}
+.scaletrack{display:grid; grid-template-columns:20fr 15fr 25fr 20fr 20fr; gap:3px;}
+.seg{height:34px; border-radius:4px; background:var(--sunk); border:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase;}
+.seg.on{background:var(--tier3); border-color:var(--tier3); color:#1A1400; font-weight:500;}
+.seg.was{background:var(--low-bg); border-color:var(--low); color:var(--low); font-weight:500;}
+.ticks{position:relative; height:32px; margin-top:7px;}
+.tick{position:absolute; transform:translateX(-50%); text-align:center; white-space:nowrap;}
+.tick i{display:block; width:2px; height:9px; background:var(--ink); margin:0 auto 3px;}
+.tick.alt i{background:var(--low);}
+.tick span{font-family:var(--mono); font-size:11px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink);}
+.tick.alt span{color:var(--low);}
+.scalenote{font-size:13.5px; color:var(--muted); margin-top:12px; max-width:none;}
+.events{margin-top:20px; display:flex; flex-direction:column; border-top:1px solid var(--rule);}
+.ev{display:grid; grid-template-columns:88px 1fr; gap:0 18px;
+  padding:15px 0; border-bottom:1px solid var(--rule-2); align-items:start;}
+.dist{font-family:var(--mono); font-size:13px; font-weight:500; font-variant-numeric:tabular-nums;
+  padding-top:2px; display:flex; flex-direction:column; gap:4px;}
+.dist .n{color:var(--far);}
+.dist.near .n{color:var(--near);}
+.dist.mid .n{color:var(--mid);}
+.dist .bar{height:3px; border-radius:2px; background:var(--far); opacity:.4;}
+.dist.near .bar{background:var(--near); opacity:1;}
+.dist.mid .bar{background:var(--mid); opacity:.85;}
+.ev .when{font-family:var(--mono); font-size:11.5px; color:var(--muted);}
+.ev h3{margin:2px 0 4px; font-size:16px; font-weight:600; font-family:var(--body); line-height:1.35;}
+.ev p{margin:0; font-size:14.5px; color:var(--muted); max-width:66ch;}
+.ev p b{color:var(--ink);}
+.ev .where{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:6px;}
+.flag{display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; padding:2px 7px; border-radius:3px; margin-left:8px;
+  background:var(--crit-bg); color:var(--crit); border:1px solid var(--crit);
+  vertical-align:2px; font-weight:500;}
+.tscroll{overflow-x:auto; margin-top:16px; border:1px solid var(--rule); border-radius:10px; background:var(--surface);}
+table{width:100%; border-collapse:collapse; font-size:14.5px; min-width:540px;}
+caption{text-align:left; padding:13px 16px 0; font-size:13.5px; color:var(--muted);}
+th{text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); font-weight:500; padding:12px 16px 9px; border-bottom:1px solid var(--rule);}
+td{padding:9px 16px; border-bottom:1px solid var(--rule-2); vertical-align:top;}
+tbody tr:last-child td{border-bottom:0;}
+td.n,th.n{text-align:right; font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.cat td{background:var(--sunk); font-weight:600; font-size:12.5px;
+  font-family:var(--mono); letter-spacing:.05em; text-transform:uppercase;}
+tr.tot td{border-top:2px solid var(--accent); font-weight:700; background:var(--sunk);}
+.note{margin-top:18px; border-radius:10px; padding:16px 18px; border:1px solid var(--rule);
+  background:var(--surface); border-left:4px solid var(--accent);}
+.note.warn{border-left-color:var(--tier3); background:var(--tier3-bg);}
+.note.bad{border-left-color:var(--crit); background:var(--crit-bg);}
+.note.good{border-left-color:var(--low); background:var(--low-bg);}
+.note h3{margin:0 0 7px; font-size:15.5px; font-weight:600; font-family:var(--body);}
+.note p{margin:0 0 9px; font-size:15px;}
+.note p:last-child{margin-bottom:0;}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:14px; margin-top:18px;}
+.grid2 .note{margin-top:0;}
+ul.clean{margin:10px 0 0; padding-left:20px;}
+ul.clean li{margin-bottom:9px; max-width:66ch;}
+.src{font-size:13px; color:var(--muted); max-width:none;}
+footer{margin-top:44px; padding-top:22px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted);}
+footer p{max-width:none; margin-bottom:10px;}
+@media (max-width:560px){
+  .ev{grid-template-columns:1fr; gap:7px;}
+  .dist{flex-direction:row; align-items:center; gap:9px;}
+  .dist .bar{flex:1; max-width:72px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important;}}
+</style>
+
+<div class="classbar">Confidential · Proprietary · Attorney Work Product</div>
+
+<div class="wrap">
+
+<header class="doc">
+  <div class="org">Best Buy · Protective Intelligence &amp; Investigations</div>
+  <h1>Lake Harriet Threat Assessment</h1>
+  <p class="addr"><b>4889 East Lake Harriet Parkway, Minneapolis, Minnesota 55419.</b> Personal residential due-diligence. The question this answers: is it safe to run alone on the parkway at 5:30 a.m.?</p>
+  <dl class="docmeta">
+    <div><dt>Document</dt><dd>PI-2026-RSA-001</dd></div>
+    <div><dt>Status</dt><dd>Final</dd></div>
+    <div><dt>Window</dt><dd>365 days</dd></div>
+    <div><dt>Radius</dt><dd>5 miles</dd></div>
+    <div><dt>Events found</dt><dd>18</dd></div>
+    <div><dt>On the parkway</dt><dd>0</dd></div>
+  </dl>
+</header>
+
+<section>
+  <p class="eyebrow">Bottom line</p>
+  <div class="verdict">
+    <div class="vtop">
+      <span class="vband">MODERATE</span>
+      <span class="vscore">Composite 37 / 100 · Tier 3 of 5</span>
+    </div>
+    <p class="lede"><b>The neighborhood is safe. The run is the risk.</b> Across the trailing year, nothing violent was reported anywhere on the Lake Harriet parkway. Eighteen events surfaced within five miles of the house, and the closest of any kind was a car crash about a mile away.</p>
+    <p>Almost the entire score comes from one thing: running alone, in darkness, on a fixed route at a fixed time, across a seam where two police departments each cover only part of the ground. Remove the pre-dawn run and the score falls to 27.</p>
+
+    <div class="scale">
+      <div class="scaletrack" role="img" aria-label="Risk scale from 0 to 100. The assessment sits at 37, inside the Moderate band which spans 36 to 60. Without the pre-dawn run it sits at 27, inside the Low band which spans 21 to 35.">
+        <div class="seg">Minimal</div>
+        <div class="seg was">Low</div>
+        <div class="seg on">Moderate</div>
+        <div class="seg">High</div>
+        <div class="seg">Critical</div>
+      </div>
+      <div class="ticks">
+        <div class="tick alt" style="left:27%"><i></i><span>27 without the run</span></div>
+        <div class="tick" style="left:63%"><i></i><span>37 as assessed</span></div>
+      </div>
+      <p class="scalenote">Bands: 0&ndash;20 minimal · 21&ndash;35 low · 36&ndash;60 moderate · 61&ndash;80 high · 81&ndash;100 critical. One behavior moves this assessment across a tier boundary. Nothing else in the matrix does.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Scope</p>
+  <h2>Two filters, applied in order</h2>
+  <p><b>Date.</b> The event happened between 14 September 2025 and 14 September 2026. When a story was published never qualifies it; only when the event occurred. <b>Distance.</b> The event happened within roughly five miles of the house. Distances are estimated from street geography.</p>
+  <div class="note warn">
+    <h3>What the one-year limit costs</h3>
+    <p>The strict window removes the single closest match that exists for this question. In <b>September 2015</b> a solo runner was grabbed from behind and chased at <b>5:30 a.m. on West Lake Harriet Parkway near Sheridan Avenue South</b>. Same time, same place, same activity. It also removes a series of escalating incidents on this lake in July 2017, and a jogger struck by a car on this parkway in November 2020.</p>
+    <p>Those three are the most relevant events on record for this location. The resulting picture is <b>less informative about the question being asked, not safer.</b> The vulnerability score is now carried by structural conditions rather than by precedent.</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Findings · ordered by distance from the house</p>
+  <h2>What happened within five miles</h2>
+  <p>Proximity is the organizing fact of this report, so the record is ordered by it rather than by date. Every entry was checked against an original report before inclusion.</p>
+
+  <div class="events">
+    <div class="ev">
+      <div class="dist near"><span class="n">on route</span><span class="bar"></span></div>
+      <div>
+        <div class="when">Since 13 July 2026</div>
+        <h3>Storm sewer reconstruction on the running corridor <span class="flag">Direct</span></h3>
+        <p>Oliver Avenue between West 50th Street and Lake Harriet Parkway, and West 50th between Oliver and Penn. Scheduled into summer 2027. It changes footing, lighting and sightlines on part of the route through the darkest months of the year.</p>
+        <div class="where">On the route corridor</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist near"><span class="n">&lt; 0.5 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">10 May 2026</div>
+        <h3>Car window smashed in Lynnhurst, nothing taken</h3>
+        <p>A resident returned from a weekend trip to a broken window. Further break-ins were reported the same Sunday in Kenny and Armatage, immediately south. Parked-vehicle crime, with no threat to a person on foot.</p>
+        <div class="where">Lynnhurst · the subject's own neighborhood</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist near"><span class="n">~1 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">1 May 2026</div>
+        <h3>Stolen car at 80 mph, headlights off, through a stop sign <span class="flag">Direct</span></h3>
+        <p>Thailand Taiwan Hawkins, 19, drove a stolen Hyundai into a State Patrol squad, pinning the trooper, who sustained a fractured fibula and scapula. A passenger suffered a compound neck fracture and a brain bleed. Hawkins told police it is "fun to drive around in stolen vehicles." <b>This is the nearest in-window event of any kind, and the clearest realistic hazard to a runner in the file.</b></p>
+        <div class="where">East Harriet · West 46th Street and Aldrich Avenue South</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist mid"><span class="n">~1 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">2025 to 2026</div>
+        <h3>Overnight window-smashing reaches Linden Hills</h3>
+        <p>Minneapolis Police 5th Precinct investigations attributes the pattern to a single group of juveniles active citywide. Proximity only.</p>
+        <div class="where">Linden Hills, adjacent</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">~2 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">17 July and 16 August 2026</div>
+        <h3>Two Park Police responses at Bde Maka Ska</h3>
+        <p>A person down on a park bench at West Bde Maka Ska Parkway and Rose Lane in July. A body recovered from the water in a severe state of decomposition in August, cause undetermined. Adjacent lake, same parkway system.</p>
+        <div class="where">Bde Maka Ska</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist mid"><span class="n">~2.5 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">21 June 2026</div>
+        <h3>Homicide in Uptown <span class="flag">Nearest violent crime</span></h3>
+        <p>Dashon Lavell Amos charged with two counts of second-degree murder with intent. Police link the suspect group, known as "1500" or "Wayne City," to multiple shootings.</p>
+        <div class="where">2100 block Lyndale Avenue South</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist mid"><span class="n">~3 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">7 and 24 January 2026</div>
+        <h3>Two people killed by federal agents during Operation Metro Surge</h3>
+        <p>Ren&eacute;e Nicole Macklin Good, 37, shot in her car on Portland Avenue South. Alex Jeffrey Pretti, 37, a Department of Veterans Affairs intensive care nurse, shot on Nicollet Avenue. A Department of Justice civil rights investigation is open. Recorded as street-environment context rather than street crime.</p>
+        <div class="where">Portland Avenue South · Nicollet Avenue</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">~3 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">27 April 2026</div>
+        <h3>Around 30 vehicles damaged between 1:30 and 9:15 a.m.</h3>
+        <p>Clustered within a mile of Lake Nokomis and Lake Hiawatha, with fourteen on a single block. The offender window covers 5:30 a.m., which is an encounter consideration rather than a violence estimate.</p>
+        <div class="where">Nokomis and Hiawatha</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist mid"><span class="n">~3.5 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">8 April 2026</div>
+        <h3>Pedestrian assaulted after parking <span class="flag">Profile match</span></h3>
+        <p>Two aggravated robberies minutes apart from 5:45 p.m. A man who had just parked and was walking toward a business was approached and assaulted by four juveniles in an apparent attempted carjacking. Four teens arrested, all with prior arrests.</p>
+        <div class="where">2600 block Park Avenue</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">~4 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">15 to 20 May 2026</div>
+        <h3>A man died confronting car thieves <span class="flag">Disengage</span></h3>
+        <p>Amos Ferrier, 38, an Army veteran, confronted two people stealing his car outside his workplace, was thrown from the moving vehicle and died of head injuries. Two women, 18 and 19, were arrested. <b>This is why the guidance is distance and disengagement, never confrontation.</b></p>
+        <div class="where">5400 block 43rd Avenue South</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist mid"><span class="n">~4 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">2 September 2026</div>
+        <h3>Mass shooting at the Shoreline Plaza apartment building</h3>
+        <p>Three dead: Dale Henry Spry, 63, Muse Abdi Afrah, 61, and the gunman Carlton Neal Johnson II, 35. Seven people were wounded by gunfire in total, spanning residents, building staff and responding officers. The largest in-window event, and building-specific.</p>
+        <div class="where">15 East Grant Street, Loring Park</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">~4 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">4 September 2026</div>
+        <h3>Stolen vehicle pursuit ends in a crash <span class="flag">Direct</span></h3>
+        <p>The vehicle struck a Hennepin County Sheriff's squad. Smash-and-grab tools were recovered. Four were arrested, three juveniles and an 18-year-old. Same mechanism as the 1 May collision.</p>
+        <div class="where">26th Avenue South and East 9th Street</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">~4 mi</span><span class="bar"></span></div>
+      <div>
+        <div class="when">14 and 15 September 2025</div>
+        <h3>Three shootings along Lake Street in two days</h3>
+        <p>A man killed and a boy wounded at 15th Avenue South at 1:45 a.m. on the 14th, with two men later charged. Five men shot at Stevens Avenue South before noon on the 15th, one of whom died on 20 September. An encampment mass shooting at 28th Avenue South that night killed Jacinda Oakgrove, 30, and injured six, with more than thirty shots fired. <b>The year under review opened on its two worst days.</b></p>
+        <div class="where">Along East Lake Street</div>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="dist"><span class="n">citywide</span><span class="bar"></span></div>
+      <div>
+        <div class="when">Late August 2026</div>
+        <h3>At least 87 vehicles damaged in a single night</h3>
+        <p>Nine locations, between 2:00 and 7:00 a.m., with no arrests announced at the time. The offender window again covers 5:30 a.m.</p>
+        <div class="where">Citywide, including southwest</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">The parkway itself</p>
+  <h2>Nothing was reported on the running surface</h2>
+  <div class="note good">
+    <p>No violent incident, robbery, assault or exposure report was located on the Lake Harriet parkway or its adjoining blocks at any point in the 365-day window. The search was run repeatedly and from several angles: the parkway by name, the band shell, the boat launch, the recreation center, Park Police incident summaries, and neighborhood press. Every Lake Harriet result returned either an incident from 2023 or earlier, or concert programming.</p>
+    <p><b>This is a null result and it is reported as one.</b> It means no incident was reported in an accessible source. It is not a certification that none occurred, and it cannot become one until the outstanding records requests return. The City's incident-level crime dataset, which is the record that would actually settle the question, could not be reached from the working environment.</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Method</p>
+  <h2>How the score is built</h2>
+  <p>Factors score 0 to 100. Each category score is the unweighted mean of its factors, and the composite is the weighted sum. Factors carrying an unresolved gap are scored conservatively rather than omitted.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Factor</th><th class="n">Score</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr class="cat"><td>A · Site and property</td><td class="n">31.0</td><td>Weight 25% · contributes 7.75</td></tr>
+        <tr><td>Structural and occupancy baseline</td><td class="n">15</td><td>2020 construction, owner-occupied single family</td></tr>
+        <tr><td>Target appeal: publicly marketed high-value residence</td><td class="n">55</td><td>Full interior photography indexed against a named address</td></tr>
+        <tr><td>Perimeter and approach exposure</td><td class="n">24</td><td>Parkway frontage, open lakeside approach</td></tr>
+        <tr><td>Ownership and occupancy record clarity</td><td class="n">30</td><td>Aggregator 2018 sale conflicts with active re-listings</td></tr>
+
+        <tr class="cat"><td>B · Threat intelligence, in window and in radius</td><td class="n">35.2</td><td>Weight 32% · contributes 11.26</td></tr>
+        <tr><td>Ambient violent crime, immediate ring</td><td class="n">10</td><td>Among the lowest-crime areas of the city</td></tr>
+        <tr><td>In-window property-crime pattern within the radius</td><td class="n">55</td><td>Lynnhurst direct hit, Nokomis and citywide sprees</td></tr>
+        <tr><td>Verified in-window violent incidents on the parkway</td><td class="n">8</td><td>None located. Floor reflects reporting gaps, not certainty</td></tr>
+        <tr><td>In-window violent crime within the radius</td><td class="n">55</td><td>Lake Street cluster, Loring Park, two federal shootings, Uptown homicide</td></tr>
+        <tr><td>In-window vehicular threat on or near the route</td><td class="n">48</td><td>1 May collision, 4 September pursuit crash, Ferrier death</td></tr>
+
+        <tr class="cat"><td>C · Vulnerability and environmental</td><td class="n">42.9</td><td>Weight 43% · contributes 18.43</td></tr>
+        <tr><td>Activity exposure: solo, pre-dawn, full darkness</td><td class="n">60</td><td>No companion, no witnesses, darkness for the whole run</td></tr>
+        <tr><td>Route predictability</td><td class="n">55</td><td>Fixed route at a fixed time. The most controllable factor scored</td></tr>
+        <tr><td>Patrol coverage seam</td><td class="n">48</td><td>City and Park Board boundary, Park Patrol weighted to summer</td></tr>
+        <tr><td>Lighting and sightlines</td><td class="n">42</td><td>Unverified. Scored conservatively pending physical reconnaissance</td></tr>
+        <tr><td>Active construction on the route corridor</td><td class="n">40</td><td>Oliver Avenue works, July 2026 into summer 2027</td></tr>
+        <tr><td>Offender-presence window overlap</td><td class="n">30</td><td>In-window sprees ran 1:30&ndash;9:15 and 2:00&ndash;7:00. Both cover 5:30</td></tr>
+        <tr><td>Communications and response</td><td class="n">25</td><td>Populated residential corridor, carry-phone assumed</td></tr>
+
+        <tr class="tot"><td>Composite &nbsp;(0.25 &times; 31.0) + (0.32 &times; 35.2) + (0.43 &times; 42.9)</td><td class="n">37</td><td>Tier 3 · Moderate</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="note">
+      <h3>Sensitivity test</h3>
+      <p>Hold the site and intelligence categories constant and reduce vulnerability to its ambient residue of roughly 18, which is what remains once activity exposure, route predictability, construction and the offender window fall away and the patrol seam stops applying to a resident indoors at 5:30. The composite becomes <b>27, which is Tier 4 Low.</b></p>
+    </div>
+    <div class="note">
+      <h3>Scope test</h3>
+      <p>The score was computed at neighborhood scope and again at five miles, and reproduced the same band both times. Widening the radius moved the composite by one point. Across five scopes and a quality-control pass the score ran 34, 36, 36, 37, 37. <b>Geography is not what drives this assessment. The behavior is.</b></p>
+    </div>
+  </div>
+  <p class="src" style="margin-top:14px">Scoring is analyst judgment adapted from the Best Buy executive-protection threat matrix. It is a directional indicator, not a calibrated instrument. A three-point spread sits inside its noise, and the band is the finding rather than the number.</p>
+</section>
+
+<section>
+  <p class="eyebrow">Quality control</p>
+  <h2>Six items looked current. All six were years old.</h2>
+  <p>Every qualifying item was re-verified against an original report naming the event date. That pass removed six items and corrected three factual errors, two of which had already appeared in published revisions of this assessment.</p>
+  <div class="tscroll">
+    <table>
+      <caption>Each of these reads as current and precisely on-point for a solo runner. None of them qualifies.</caption>
+      <thead><tr><th>Item</th><th>Appears to be</th><th>Verified as</th></tr></thead>
+      <tbody>
+        <tr><td>"5 of 7 carjackings in the neighborhoods ringing Lake Harriet, Nov 14&ndash;25"</td><td>In window</td><td><b>November 2021</b></td></tr>
+        <tr><td>Police alert: victims "alone or with one other person, either walking"</td><td>Current, and exactly the profile in question</td><td>Cites an inspector who <b>left that command in August 2023</b></td></tr>
+        <tr><td>Lake Harriet band shell shooting</td><td>"October 2026" per a search summary</td><td><b>24 October 2023</b> per charging records</td></tr>
+        <tr><td>"Police report rise in crime along Lake Nokomis, Minnehaha Creek"</td><td>A current warning, on a creek that runs past this lake</td><td><b>February 2021</b></td></tr>
+        <tr><td>"Three arrested after string of robberies in Uptown"</td><td>In window</td><td><b>September 2024</b></td></tr>
+        <tr><td>Linden Hills, "13 larceny and theft offenses, highest month in the past year"</td><td>An August 2026 local trend marker</td><td><b>Source article dates to 2022.</b> Reached two published revisions before being caught</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note bad">
+    <h3>The transferable lesson</h3>
+    <p>Date verification, not collection volume, was the binding constraint on this assessment. Search-result summaries proved unreliable on dates specifically, attaching a current frame to old reporting. Every one of the six would have passed a casual read, and each described exactly the kind of incident being asked about.</p>
+    <p>One correction is worth stating plainly: <b>the Linden Hills figure survived into two published revisions of this document before it was caught.</b> It is recorded here rather than quietly removed.</p>
+  </div>
+  <p class="src" style="margin-top:14px"><b>One exclusion is named so it is visible rather than silent.</b> The Annunciation church shooting occurred roughly 1.5 miles away, comfortably inside the radius, and drives the 5th Precinct's year-over-year shooting-victim increase on its own. It happened on 27 August 2025, eighteen days before this window opens, so it does not qualify. Excluded on distance: the Elm Creek Park Reserve assault at roughly 15 miles, and the North Minneapolis pursuit crash at roughly 7 miles.</p>
+</section>
+
+<section>
+  <p class="eyebrow">Sentiment</p>
+  <h2>What the neighborhood itself says</h2>
+  <div class="grid2">
+    <div class="note">
+      <h3>The complaint is crowding, not danger</h3>
+      <p>The Lake Harriet loop trail carries more than 1,600 public reviews, with usage repeatedly described as heavy. A corridor residents avoid does not generate that pattern. Coverage of the break-in wave captured the counter-current: <i>"We think we live in a bubble here, but I guess not."</i></p>
+    </div>
+    <div class="note">
+      <h3>The 2026 civic agenda is not about crime</h3>
+      <p>Neighborhood association and local press coverage through the year centers on the Lynnhurst Park master plan and its wading pool, the Oliver Avenue sewer works, Penn Avenue bridge redecking, and Porchfest. Residents organizing around park amenities rather than safety is what a low-threat neighborhood looks like from the inside.</p>
+    </div>
+  </div>
+  <div class="note warn">
+    <h3>The resident-forum layer was not collected</h3>
+    <p>Nextdoor sits behind a login wall. Reddit refuses this kind of automated access outright, returning a hard refusal naming the user agent, so no amount of retrying reaches it. <b>These are the one source that would surface incidents too small to reach the press</b>, which is precisely the gap the parkway null result leaves open. They have to be searched from the owner's own browser, recording for every hit the event date and whether the account is firsthand or a repost.</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Action</p>
+  <h2>Four checks before treating this as settled</h2>
+  <ul class="clean">
+    <li><b>Walk the route once at 5:30 a.m., this season.</b> No database substitutes for it. Lighting, blind spots, how isolated the darkest stretch feels, phone signal, and how the Oliver Avenue works change things. A pleasant summer walk does not answer a January question.</li>
+    <li><b>File two records requests, not one.</b> City police cover the house. <b>Park Board police cover the parkway actually run on.</b> A request to the city alone misses the running surface entirely. Both drafts are written, and the Park Board request also asks how many patrol hours the lake receives between 4 and 7 a.m., which would measure the coverage seam rather than infer it.</li>
+    <li><b>Search Nextdoor and Reddit personally.</b> Record the event date and firsthand-versus-repost status for every hit. Applying that rule at collection time is what prevents a repeat of the quality-control findings above.</li>
+    <li><b>Run the two offender-registry searches</b> against the address. Both are quick interactive lookups.</li>
+  </ul>
+  <div class="note">
+    <h3>One open question that changes how this reads</h3>
+    <p>The runner's own risk profile is not on record, and it determines how heavily the pre-window precedents, particularly the 2015 assault at this exact time and place, should weigh against the clean in-window parkway record. No other open item changes the tier.</p>
+  </div>
+</section>
+
+<footer>
+  <p><b>Sources.</b> Star Tribune · MPR News · CBS Minnesota and WCCO · KSTP 5 Eyewitness News · FOX 9 · KARE 11 · Southwest Voices · NPR and ProPublica · Minnesota Reformer · City of Minneapolis, Precinct 5 and Open Data portal · Minneapolis Park and Recreation Board, Park Police and Safety and incident summaries · Hennepin County and Minneapolis Police charging bulletins · Lynnhurst Neighborhood Association.</p>
+  <p><b>Excluded throughout.</b> Consumer crime-score aggregators returned mutually inconsistent neighborhood figures and were discarded rather than used at every stage, including when they surfaced repeatedly during collection.</p>
+  <p><b>Standing caveat.</b> Absence of coverage is not confirmation of safety. Every "none located" statement means no incident was reported in an accessible source, and nothing more. Four high-priority collection gaps remain open, two of which only the owner can close. This document should be read against them.</p>
+</footer>
+
+</div>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PI-2026-RSA-001 Residential Threat Assessment (Brief)</title>
+<style>
+  :root{--bby-blue:#0046BE; --bby-dark:#001E73; --bby-yellow:#FFE000;
+    --ink:#14181F; --mute:#5A6270; --rule:#D6DBE3; --wash:#F4F6FA;
+    --lo:#1B7F4B; --mod:#B26A00; --hi:#B3261E;}
+  @page{size: Letter; margin: 0.5in 0.5in 0.66in 0.5in;
+    @bottom-left{content:"PI-2026-RSA-001 BRIEF · CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT";
+      font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif; font-size:6.4pt; color:#5A6270;}
+    @bottom-right{content:"Page " counter(page) " of " counter(pages);
+      font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif; font-size:6.4pt; color:#5A6270;}}
+  *{box-sizing:border-box;}
+  body{font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif;
+    color:var(--ink); font-size:8.3pt; line-height:1.3; margin:0; font-weight:300;}
+  b,strong,th{font-weight:600;}
+  .masthead{border-top:4px solid var(--bby-blue); padding-top:7px; margin-bottom:8px;}
+  .brandrow{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .brand{font-size:10.4pt; font-weight:800; color:var(--bby-blue); white-space:nowrap; letter-spacing:-.015em;}
+  .brand span{color:var(--bby-dark); font-weight:600;}
+  .classline{flex:0 0 auto; font-size:6.3pt; font-weight:700; letter-spacing:.09em; color:var(--bby-dark);
+    background:var(--bby-yellow); padding:2.5px 6px; border-radius:2px; white-space:nowrap;}
+  h1{font-size:14pt; margin:7px 0 2px; letter-spacing:-.02em; color:var(--bby-dark); font-weight:700;}
+  h1 .fin{font-size:7pt; letter-spacing:.12em; color:#fff; background:var(--bby-dark);
+    padding:2px 7px; border-radius:2px; vertical-align:.34em; margin-left:7px; font-weight:700;}
+  .sub{font-size:8.3pt; color:var(--mute); margin:0 0 9px;}
+  .meta{display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; margin-bottom:9px;}
+  .meta div{padding:4px 7px; border-right:1px solid var(--rule); background:var(--wash);}
+  .meta div:last-child{border-right:0;}
+  .meta b{display:block; font-size:6.1pt; letter-spacing:.08em; color:var(--mute); text-transform:uppercase; margin-bottom:1px;}
+  .meta span{font-size:8pt; font-weight:600;}
+  .verdict{border:1.5px solid var(--mod); border-left:6px solid var(--mod); border-radius:3px;
+    padding:9px 11px; margin-bottom:10px; background:#FFFAF2;}
+  .verdict .kicker{font-size:6.3pt; letter-spacing:.09em; text-transform:uppercase; color:var(--mod); font-weight:800; margin-bottom:2px;}
+  .verdict .band{font-size:13pt; font-weight:800; color:var(--mod); letter-spacing:-.01em;}
+  .verdict .band small{font-size:7.8pt; color:var(--mute); font-weight:600; letter-spacing:.04em;}
+  .verdict p{margin:5px 0 0; font-size:8.5pt;}
+  h2{font-size:8pt; letter-spacing:.09em; text-transform:uppercase; color:var(--bby-dark);
+    margin:11px 0 5px; padding-bottom:2.5px; border-bottom:1.5px solid var(--bby-yellow);}
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:7px;}
+  .card{border:1px solid var(--rule); border-radius:3px; padding:7px 9px; background:#fff;}
+  .card h3{margin:0 0 3px; font-size:8.4pt; color:var(--bby-dark);}
+  .card p{margin:0; font-size:8pt;}
+  .card .lvl{float:right; font-size:6.2pt; font-weight:800; letter-spacing:.07em;
+    padding:1.5px 5px; border-radius:2px; color:#fff;}
+  .lv-lo{background:var(--lo);} .lv-mod{background:var(--mod);}
+  table{width:100%; border-collapse:collapse; font-size:7.9pt;}
+  tr{break-inside:avoid;}
+  th{text-align:left; font-size:6.2pt; letter-spacing:.07em; text-transform:uppercase; color:var(--mute);
+    border-bottom:1px solid var(--rule); padding:3px 6px 3px 0; font-weight:700;}
+  td{padding:3px 6px 3px 0; border-bottom:1px solid #EDEFF4; vertical-align:top;}
+  td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .run{border:1px solid var(--rule); border-top:3px solid var(--bby-blue); border-radius:3px; padding:8px 10px; background:#FCFDFF;}
+  .box{border:1px solid var(--rule); border-left:5px solid var(--bby-blue); border-radius:3px; padding:7px 9px; background:#FAFCFF;}
+  .box-y{border-left-color:var(--bby-yellow); background:#FFFDF2;}
+  .box-r{border-left-color:var(--hi); background:#FDF6F5;}
+  .box-g{border-left-color:var(--lo); background:#F5FBF7;}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  ul{margin:3px 0 0; padding-left:14px;} li{margin-bottom:2.4px;}
+  .foot{margin-top:10px; padding-top:6px; border-top:1px solid var(--rule); font-size:6.6pt; color:var(--mute);}
+  .chk{font-size:8pt;}
+  .chk li{margin-bottom:3px;}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brandrow">
+    <div class="brand">Best Buy <span>| Protective Intelligence &amp; Investigations</span></div>
+    <div class="classline">CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT</div>
+  </div>
+</div>
+
+<h1>Residential Threat Assessment · Brief<span class="fin">FINAL</span></h1>
+<p class="sub">4889 East Lake Harriet Parkway, Minneapolis, MN 55419. Plain-language summary of PI-2026-RSA-001. The question: is it safe to run alone on the parkway at 5:30 a.m.?</p>
+
+<div class="meta">
+  <div><b>Document</b><span>PI-2026-RSA-001 · FINAL</span></div>
+  <div><b>Looked at</b><span>Last 365 days</span></div>
+  <div><b>Area</b><span>5 miles around home</span></div>
+  <div><b>Events found</b><span>18</span></div>
+  <div><b>On the parkway</b><span>0</span></div>
+</div>
+
+<div class="verdict">
+  <div class="kicker">Bottom line</div>
+  <div class="band">MODERATE <small>· 37 out of 100 · Tier 3 of 5</small></div>
+  <p><b>The neighborhood is safe. The run is the risk.</b> Across the last year, nothing violent was reported anywhere on the Lake Harriet parkway. Eighteen events turned up within five miles of the house, and the closest one of any kind was a car crash about a mile away. <b>Almost the entire score comes from one thing: running alone, in the dark, on the same route at the same time, in a spot where two different police departments each cover only part of the ground.</b> Take away the pre-dawn run and the score drops to 27, which is LOW.</p>
+</div>
+
+<h2>The four things that matter</h2>
+<div class="cards">
+  <div class="card">
+    <span class="lvl lv-lo">LOW</span>
+    <h3>1 · The house</h3>
+    <p>Built 2020, roughly 7,600 sq ft, listed between $3.7M and $4.9M with full interior photos online. That last part matters more than the neighborhood's crime rate: a high-value home with its inside publicly visible and tied to a street address is easier to pick as a target. Nothing has happened to it.</p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-lo">LOW</span>
+    <h3>2 · The neighborhood</h3>
+    <p>Lynnhurst and East Harriet remain among the quietest parts of Minneapolis. The nearest violent crime in the last year was a homicide about 2.5 miles north, in Uptown. The serious violence in the five-mile circle clusters along Lake Street and downtown, three to four miles away, and none of it reached these blocks.</p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-mod">MODERATE</span>
+    <h3>3 · The 5:30 a.m. run</h3>
+    <p><b>This is the whole score.</b> Alone, in full darkness for most of the year, on a fixed route at a fixed time. The parkway is Park Board land, patrolled by Park Police who concentrate on the lakes in summer. The streets beside it are city police. A pre-dawn winter run sits in the thin spot of both at once.</p>
+  </div>
+  <div class="card">
+    <span class="lvl lv-mod">MODERATE</span>
+    <h3>4 · Cars, not people</h3>
+    <p>Car break-ins reached your own block in May and have hit the surrounding neighborhoods all year. Those crews work between about 2 a.m. and 7 a.m., which overlaps your run. <b>They are after parked cars and they run from people.</b> The real hazard they create is a driving one, covered below.</p>
+  </div>
+</div>
+
+<h2>What actually happened near you this year</h2>
+<table>
+  <tr><th style="width:11%">When</th><th style="width:47%">What</th><th style="width:20%">Where</th><th class="num" style="width:10%">Distance</th><th>Matters?</th></tr>
+  <tr><td>Since 13 Jul</td><td>Storm sewer construction on Oliver Ave between W 50th and the parkway, running into summer 2027</td><td>On your route</td><td class="num" style="color:#B3261E"><b>on route</b></td><td><b>Yes</b></td></tr>
+  <tr><td>10 May</td><td>Car window smashed, nothing taken. More break-ins the same day just south</td><td>Lynnhurst, your block</td><td class="num" style="color:#B3261E"><b>&lt;0.5 mi</b></td><td>No</td></tr>
+  <tr><td>1 May</td><td>A 19-year-old in a stolen car ran a stop sign at <b>80 mph with the headlights off</b> and hit a State Patrol car. The trooper was pinned and broke two bones; a passenger suffered a broken neck and a brain bleed</td><td>W 46th and Aldrich</td><td class="num" style="color:#B3261E"><b>~1 mi</b></td><td><b>Yes</b></td></tr>
+  <tr><td>21 Jun</td><td>Homicide, one man charged with two counts of second-degree murder</td><td>Lyndale Ave S, Uptown</td><td class="num">~2.5 mi</td><td>Nearest violent crime</td></tr>
+  <tr><td>27 Apr</td><td>Around 30 cars damaged between 1:30 a.m. and 9:15 a.m.</td><td>Nokomis and Hiawatha</td><td class="num">~3 mi</td><td>Timing only</td></tr>
+  <tr><td>Jan</td><td>Two people shot and killed by federal agents during Operation Metro Surge. A federal civil rights investigation is open</td><td>Nicollet and Portland Aves</td><td class="num">~3 mi</td><td>Context</td></tr>
+  <tr><td>15 May</td><td>A man confronted two people stealing his car, was thrown from the moving vehicle, and died</td><td>43rd Ave S</td><td class="num">~4 mi</td><td><b>Yes, see below</b></td></tr>
+  <tr><td>2 Sep</td><td>Mass shooting in an apartment building. Three dead including the gunman, seven wounded by gunfire</td><td>Loring Park</td><td class="num">~4 mi</td><td>Largest event</td></tr>
+  <tr><td>14 and 15 Sep 2025</td><td>Three separate shootings in two days killed three people and wounded about a dozen</td><td>Along Lake Street</td><td class="num">~4 mi</td><td>Start of the year reviewed</td></tr>
+</table>
+<p style="font-size:7.2pt; color:#5A6270; margin-top:3px">Nine more qualifying items are listed in the full assessment. The year reviewed opened on its two worst days and closed on a comparable one. <b>Neither cluster came near this neighborhood.</b></p>
+
+<h2>The run, in plain terms</h2>
+<div class="run">
+  <ul>
+    <li><b>The darkness is the variable, not the lake.</b> In September a 5:30 start is close to first light. By November and through March it is fully dark for the entire run. The route does not change; the risk does, month to month.</li>
+    <li><b>Being predictable is the one thing fully in your control.</b> Same route, same time, every day is the single factor you can change today that most reduces exposure. Vary the start by 20 minutes and alternate direction.</li>
+    <li><b>The biggest realistic hazard is a car, not a person.</b> The 1 May crash is the clearest signal in the whole file: a stolen car at 80 mph, lights off, running a stop sign on residential streets a mile from your door. City police no longer chase stolen cars unless a violent felony is involved, so these vehicles keep moving. Run facing traffic where you can, and treat every intersection as though a car may arrive without lights.</li>
+    <li><b>If you come across someone breaking into a car, keep going.</b> A man four miles from here died in May doing the opposite. Distance and disengagement, never confrontation, and never a photograph from close range.</li>
+    <li><b>There is construction on your route right now.</b> Oliver Ave between W 50th and the parkway is dug up until summer 2027. Uneven footing and changed lighting, through the darkest months.</li>
+  </ul>
+</div>
+
+<h2>Two things this brief will not tell you</h2>
+<div class="two">
+  <div class="box box-g">
+    <p><b>"Nothing was reported" is not "nothing happened."</b> No violent incident turned up on the parkway in the last year, and that search was run repeatedly and several different ways. It still only means nothing reached a source we can read. The city's own incident-level crime data would settle it properly and could not be reached from this environment. <b>Treat the clean record as encouraging, not as proof.</b></p>
+  </div>
+  <div class="box box-y">
+    <p><b>The one-year limit hides the closest match.</b> In September 2015 a runner was grabbed from behind and chased at 5:30 a.m. on West Lake Harriet Parkway. Same time, same place, same activity. It falls outside the year reviewed, so it is not counted here. There were also a string of incidents on this lake in 2017 and a jogger struck by a car on this parkway in 2020. <b>Those are the most relevant events that exist for this question, and the one-year rule removes all of them.</b></p>
+  </div>
+</div>
+
+<h2>Checks worth running before you treat this as settled</h2>
+<div class="box box-r">
+  <ul class="chk">
+    <li><b>Walk the route once at 5:30 a.m., this season.</b> Nobody can do this from a database. Look at lighting, blind spots, how isolated the darkest stretch feels, whether your phone has signal, and how the Oliver Ave construction changes things. A pleasant summer walk does not answer a January question.</li>
+    <li><b>Request the police records. Two of them, not one.</b> The city police cover your house. The <b>Park Board</b> police cover the parkway you actually run on. A request to the city alone misses the running surface entirely. Both drafts are written and ready to send, and the Park Board one asks how many patrol hours the lake actually gets between 4 and 7 a.m.</li>
+    <li><b>Search Nextdoor and Reddit yourself.</b> Neither can be reached from here: Nextdoor needs your login, and Reddit blocks this kind of automated access outright. Your neighbors' accounts are the one source that would show incidents too small to make the news. For anything you find, note the <b>date</b> and whether the person saw it themselves.</li>
+    <li><b>Run the two offender-registry searches</b> against the address. Both are quick interactive lookups.</li>
+  </ul>
+</div>
+
+<div class="foot">
+  <b>How this was built.</b> Only events that happened between 14 September 2025 and 14 September 2026, within roughly five miles of the house. When a story was published does not count; when the event happened does. Distances are estimates from street geography. Every event was checked against an original report before being included, and that check removed six items that looked current but were years old, and corrected three factual errors. The full assessment carries the details, the scoring, and the sources.<br>
+  <b>Scoring.</b> Analyst judgment adapted from the Best Buy executive-protection threat matrix, weighted 25% house, 32% local crime, 43% how exposed the activity is. It is a directional indicator, not a calibrated instrument. The band, MODERATE, is the finding. The number is not precise to the point.<br>
+  <b>Excluded.</b> Consumer crime-score websites were not used at any stage. They disagreed with each other and with the police data.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PI-2026-RSA-001 Residential Threat Assessment</title>
+<style>
+  :root{--bby-blue:#0046BE; --bby-dark:#001E73; --bby-yellow:#FFE000;
+    --ink:#14181F; --mute:#5A6270; --rule:#D6DBE3; --wash:#F4F6FA;
+    --t2:#B3261E; --t3:#B26A00; --t4:#1B7F4B;}
+  @page{size: Letter; margin: 0.42in 0.42in 0.58in 0.42in;
+    @bottom-left{content:"PI-2026-RSA-001 FINAL · CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT";
+      font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif; font-size:6.4pt; color:#5A6270;}
+    @bottom-right{content:"Page " counter(page) " of " counter(pages);
+      font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif; font-size:6.4pt; color:#5A6270;}}
+  *{box-sizing:border-box;}
+  body{font-family:'Human BBY 45 Light','Human BBY Web','Human BBY',Arial,sans-serif;
+    color:var(--ink); font-size:7.0pt; line-height:1.16; margin:0; font-weight:300;}
+  b,strong,th{font-weight:600;}
+  .masthead{border-top:4px solid var(--bby-blue); padding-top:7px; margin-bottom:7px;}
+  .brandrow{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .brand{font-size:10.4pt; font-weight:800; color:var(--bby-blue); white-space:nowrap; letter-spacing:-.015em;}
+  .brand span{color:var(--bby-dark); font-weight:600;}
+  .classline{flex:0 0 auto; font-size:6.3pt; font-weight:700; letter-spacing:.09em; color:var(--bby-dark);
+    background:var(--bby-yellow); padding:2.5px 6px; border-radius:2px; white-space:nowrap;}
+  h1{font-size:13.5pt; margin:6px 0 2px; letter-spacing:-.02em; color:var(--bby-dark); font-weight:700;}
+  h1 .fin{font-size:7pt; letter-spacing:.12em; color:#fff; background:var(--bby-dark);
+    padding:2px 7px; border-radius:2px; vertical-align:.32em; margin-left:7px; font-weight:700;}
+  .sub{font-size:8.1pt; color:var(--mute); margin:0 0 7px;}
+  .meta{display:grid; grid-template-columns:repeat(6,1fr); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; margin-bottom:7px;}
+  .meta div{padding:3px 6px; border-right:1px solid var(--rule); background:var(--wash);}
+  .meta div:last-child{border-right:0;}
+  .meta b{display:block; font-size:5.9pt; letter-spacing:.08em; color:var(--mute); text-transform:uppercase; margin-bottom:1px;}
+  .meta span{font-size:7.6pt; font-weight:600;}
+  h2{font-size:7.7pt; letter-spacing:.09em; text-transform:uppercase; color:var(--bby-dark);
+    margin:5px 0 2px; padding-bottom:1.5px; border-bottom:1.5px solid var(--bby-yellow);}
+  h2 .n{color:var(--bby-blue); font-weight:800; margin-right:5px;}
+  .tier{border:1.5px solid var(--t3); border-left:6px solid var(--t3); border-radius:3px;
+    padding:6px 9px; background:#FFFAF2; margin-bottom:6px;}
+  .tier .band{font-size:12.5pt; font-weight:800; color:var(--t3); letter-spacing:-.01em;}
+  .tier .band small{font-size:7.4pt; color:var(--mute); font-weight:600; letter-spacing:.05em;}
+  .tier p{margin:3px 0 0; font-size:7.5pt;}
+  table{width:100%; border-collapse:collapse; font-size:6.5pt;}
+  tr{break-inside:avoid; page-break-inside:avoid;}
+  th{text-align:left; font-size:6.1pt; letter-spacing:.07em; text-transform:uppercase; color:var(--mute);
+    border-bottom:1px solid var(--rule); padding:3px 5px 3px 0; font-weight:700;}
+  td{padding:1.7px 4px 1.7px 0; border-bottom:1px solid #EDEFF4; vertical-align:top;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  tr.cat td{background:var(--wash); font-weight:600; border-bottom:1px solid var(--rule);}
+  tr.tot td{border-top:2px solid var(--bby-blue); border-bottom:0; font-weight:700; padding-top:4px;}
+  tr.near td{background:#FFF7F6;}
+  .d0{color:var(--t2); font-weight:700;} .d1{color:var(--t3); font-weight:600;}
+  .tag{font-size:6.1pt; font-weight:800; letter-spacing:.05em; color:var(--bby-blue); vertical-align:.12em;}
+  .tag-a{color:var(--mute);} .tag-q{color:var(--t2);}
+  ul{margin:2px 0 0; padding-left:13px;} li{margin-bottom:1.1px;}
+  .box{border:1px solid var(--rule); border-left:5px solid var(--bby-blue); border-radius:3px; padding:5px 8px; background:#FAFCFF;}
+  .box-y{border-left-color:var(--bby-yellow); background:#FFFDF2;}
+  .box-r{border-left-color:var(--t2); background:#FDF6F5;}
+  .box-g{border-left-color:var(--t4); background:#F5FBF7;}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:7px;}
+  .foot{margin-top:7px; padding-top:5px; border-top:1px solid var(--rule); font-size:6.35pt; color:var(--mute);}
+  .src{font-size:6.6pt; color:var(--mute);}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:6.7pt; background:var(--wash); padding:0 3px; border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brandrow">
+    <div class="brand">Best Buy <span>| Protective Intelligence &amp; Investigations</span></div>
+    <div class="classline">CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT</div>
+  </div>
+</div>
+
+<h1>Residential Threat Assessment<span class="fin">FINAL</span></h1>
+<p class="sub">4889 East Lake Harriet Parkway, Minneapolis, Minnesota 55419. Events, news and crime activity within a 5-mile radius, trailing 365 days. Principal question: whether a solo run on the parkway at 05:30 is safe.</p>
+
+<div class="meta">
+  <div><b>Document</b><span>PI-2026-RSA-001 · FINAL</span></div>
+  <div><b>Window</b><span>14 Sep 25 to 14 Sep 26</span></div>
+  <div><b>Radius</b><span>5 miles</span></div>
+  <div><b>Qualifying items</b><span>18</span></div>
+  <div><b>On the parkway</b><span>0</span></div>
+  <div><b>Risk Tier</b><span>Tier 3 · MODERATE</span></div>
+</div>
+
+<h2><span class="n">01</span> Executive Summary</h2>
+<div class="tier">
+  <div class="band">TIER 3 · MODERATE <small>· COMPOSITE 37 / 100</small></div>
+  <p><b>Eighteen qualifying items occurred inside the 5-mile radius during the 365-day window. None occurred on the Lake Harriet parkway.</b> The nearest in-window item of any kind is a vehicle collision roughly one mile east. The nearest violent crime is roughly 2.5 miles north. The window opened on its worst two days: three shootings along Lake Street on 14 and 15 September 2025 killed three people and wounded roughly a dozen, about four miles from the subject address. It closed on a comparable note with a mass shooting near Loring Park on 2 September 2026 that killed three and wounded seven by gunfire, about four miles north. <b>Neither cluster reached this neighborhood, and neither is the reason for the score.</b> Removing the pre-dawn run drops the composite to 27, Tier 4 LOW. The run is the risk.</p>
+</div>
+
+<h2><span class="n">02</span> Scope, Method and Quality Control</h2>
+<div class="two">
+  <div class="box">
+    <p><b>Two filters, strict, applied in order.</b> <b>(1) Date:</b> the event occurred between 14 September 2025 and 14 September 2026 inclusive, a 365-day span. Publication date never qualifies an item; only the event date does. <b>(2) Distance:</b> the event occurred within approximately 5 miles of the subject address. Distances are estimated from Minneapolis street geography and are approximate. No geocoding service was reachable from this environment. <span class="tag tag-a">[A]</span></p>
+    <p style="margin-top:3px"><b>Every item was verified against a primary report before inclusion.</b> That pass removed six items and corrected three factual errors, two of which had already been published in an earlier revision of this document. Section 07 logs all of it.</p>
+  </div>
+  <div class="box box-y">
+    <p><b>What this scope costs, stated plainly.</b> A strict 365-day window removes the only exact time, place and activity match in the entire file: a solo runner grabbed from behind and chased at <b>05:30 on West Lake Harriet Parkway near Sheridan Avenue South, September 2015</b>. It also removes the July 2017 escalation series on this lake corridor, in which a man knocked a woman off her bicycle and assaulted her and a second man grabbed two women four days later, and the November 2020 minivan that left the parkway and struck a jogger.</p>
+    <p style="margin-top:3px">Those three are the strongest activity-specific evidence that exists for this location. PI assesses the resulting picture as <b>less informative about the question being asked, not safer.</b> Category C is now carried by structural conditions rather than by precedent.</p>
+  </div>
+</div>
+
+<h2><span class="n">03</span> Qualifying Items, Sorted by Distance from the Residence</h2>
+<table>
+  <tr><th style="width:9%">Date</th><th style="width:40%">Event</th><th style="width:20%">Location</th><th class="num" style="width:7%">Approx</th><th>Bearing on the run</th></tr>
+  <tr class="near"><td>13 Jul 2026</td><td>Storm sewer reconstruction begins on Oliver Ave between W 50th St and Lake Harriet Parkway, and on W 50th between Oliver and Penn. Scheduled into summer 2027</td><td><b>On the route corridor</b></td><td class="num d0">on route</td><td><b>Direct.</b> Footing, lighting, detours</td></tr>
+  <tr class="near"><td>10 May 2026</td><td>Resident returned from a weekend trip to a smashed car window, nothing taken. Further break-ins reported the same Sunday in Kenny and Armatage</td><td><b>Lynnhurst</b>, subject's own neighborhood</td><td class="num d0">&lt;0.5 mi</td><td>None direct. Parked vehicle</td></tr>
+  <tr class="near"><td><b>1 May 2026</b></td><td>Thailand Taiwan Hawkins, 19, drove a stolen Hyundai through a stop sign at <b>80 mph with no headlights</b> and struck a State Patrol squad, pinning the trooper. Trooper: fractured right fibula, fractured left scapula. One passenger: compound neck fracture and brain bleed. Charged with two counts of felony criminal vehicular operation, fleeing in a motor vehicle, and receiving stolen property. Told police it is "fun to drive around in stolen vehicles"</td><td><b>East Harriet</b>, W 46th St and Aldrich Ave S</td><td class="num d0">~1 mi</td><td><b>Direct. Vehicular, residential streets, no lights</b></td></tr>
+  <tr><td>2025 to 2026</td><td>Overnight vehicle window-smashing reaches Linden Hills. MPD 5th Precinct investigations attributes the pattern to one juvenile group active citywide</td><td>Linden Hills</td><td class="num d1">~1 mi</td><td>None direct. Proximity</td></tr>
+  <tr><td>17 Jul 2026</td><td>Park Police responded to a person down on a park bench at 19:50</td><td>W Bde Maka Ska Pkwy and Rose Lane</td><td class="num">~2 mi</td><td>Parkway environment, not criminal</td></tr>
+  <tr><td>16 Aug 2026</td><td>Body recovered from the water in a severe state of decomposition, per Minneapolis Park Police</td><td>Bde Maka Ska</td><td class="num">~2 mi</td><td>Adjacent lake, cause undetermined</td></tr>
+  <tr><td><b>21 Jun 2026</b></td><td>Homicide. Dashon Lavell Amos charged with two counts of second-degree murder with intent. Police link the suspect group, known as "1500" or "Wayne City," to multiple shootings</td><td>2100 block Lyndale Ave S, Uptown</td><td class="num d1">~2.5 mi</td><td><b>Nearest in-window homicide</b></td></tr>
+  <tr><td>Late Aug 2026</td><td>At least 87 vehicles damaged in a single night across 9 locations between 02:00 and 07:00. No arrests announced at the time</td><td>Citywide, includes southwest</td><td class="num">varies</td><td>Offender window covers 05:30</td></tr>
+  <tr><td>24 Jan 2026</td><td>Alex Jeffrey Pretti, 37, a Department of Veterans Affairs intensive care nurse, fatally shot by a Customs and Border Protection officer during Operation Metro Surge. DOJ civil rights investigation opened</td><td>Nicollet Ave</td><td class="num d1">~3 mi</td><td>Street environment. Not street crime</td></tr>
+  <tr><td>27 Apr 2026</td><td>At least 30 vehicles damaged between 01:30 and 09:15, clustered within a mile of Lake Nokomis and Lake Hiawatha. 14 on one block at 24th Ave S and 57th St E</td><td>Nokomis and Hiawatha</td><td class="num">~3 mi</td><td>Offender window covers 05:30</td></tr>
+  <tr><td>7 Jan 2026</td><td>Renée Nicole Macklin Good, 37, fatally shot in her car by an ICE agent during Operation Metro Surge</td><td>Portland Ave S</td><td class="num d1">~3.5 mi</td><td>Street environment. Not street crime</td></tr>
+  <tr><td><b>8 Apr 2026</b></td><td>Two aggravated robberies minutes apart from 17:45. A man who had just parked and was walking toward a business was approached and assaulted by four juveniles in an apparent attempted carjacking. Four teens arrested, all with prior arrests for auto theft, assault or aggravated robbery</td><td>2600 block Park Ave</td><td class="num d1">~3.5 mi</td><td><b>Pedestrian target, on foot after parking</b></td></tr>
+  <tr><td>15 to 20 May 2026</td><td>Amos Ferrier, 38, an Army veteran, confronted two people attempting to steal his car outside his workplace, was thrown from the moving vehicle and died of head injuries. Two women, 18 and 19, arrested</td><td>5400 block 43rd Ave S</td><td class="num">~4 mi</td><td><b>Confrontation fatality.</b> Supports disengagement</td></tr>
+  <tr><td><b>2 Sep 2026</b></td><td>Mass shooting at the Shoreline Plaza apartment building at 16:36. Three dead: Dale Henry Spry, 63, Muse Abdi Afrah, 61, and the gunman Carlton Neal Johnson II, 35. Seven people wounded by gunfire in total, spanning residents, building staff and responding officers. Officers Joseph Michnowski and Yahye Ahmed shot; a third officer cut by glass</td><td>15 E Grant St, Loring Park</td><td class="num d1">~4 mi</td><td><b>Largest in-window event.</b> Building-specific</td></tr>
+  <tr><td>4 Sep 2026</td><td>Stolen vehicle pursuit ended in a crash into a Hennepin County Sheriff's squad. Smash-and-grab tools recovered. Four arrested, three juveniles and an 18-year-old</td><td>26th Ave S and E 9th St</td><td class="num">~4 mi</td><td><b>Direct. Vehicular</b></td></tr>
+  <tr><td><b>14 Sep 2025</b></td><td>Fatal shooting at 01:45. A man was found in the street with a gunshot wound and died; a boy was hospitalised with multiple gunshot wounds. Trevon Harris, 28, and Kenny Davenport, 50, charged with second-degree murder and attempted second-degree murder</td><td>15th Ave S and E Lake St</td><td class="num">~4 mi</td><td><b>Day one of the window</b></td></tr>
+  <tr><td><b>15 Sep 2025</b></td><td>Mass shooting just before noon. Five men found with gunshot wounds. Adam John Peterson, 46, died 20 September. No arrests; police described a quarrel that escalated to gunfire</td><td>E Lake St and Stevens Ave S</td><td class="num">~4 mi</td><td>Daylight, street environment</td></tr>
+  <tr><td><b>15 Sep 2025</b></td><td>Encampment mass shooting at about 22:00, more than 30 shots fired. Jacinda Oakgrove, 30, killed and six others injured. Charges describe a dispute over drug territory. The City cleared the encampment hours later</td><td>E Lake St and 28th Ave S</td><td class="num">~4 mi</td><td>Twelve hours after the item above</td></tr>
+</table>
+
+<h2><span class="n">04</span> The Parkway Itself</h2>
+<div class="box box-g">
+  <p><b>No violent incident, robbery, assault, or exposure report was located on the Lake Harriet parkway or its adjoining blocks at any point inside the 365-day window.</b> The search was run repeatedly and from several angles: the parkway by name, the band shell, the boat launch, the rec center, MPRB Park Police incident summaries, and neighborhood press. Every Lake Harriet result returned either an incident from 2023 or earlier, or concert programming. The nearest qualifying item of any kind is the 1 May collision at roughly one mile.</p>
+  <p style="margin-top:3px"><b>This is a null result and it is reported as one.</b> It means no incident was reported in an accessible source. It is not a certification that none occurred, and it cannot become one until the two data requests at Section 09 return. The City incident-level dataset, which is the record that would actually settle this question, could not be queried from this environment.</p>
+</div>
+
+<h2><span class="n">05</span> Scored Matrix</h2>
+<p>Factors score 0 to 100. Category score is the unweighted mean of its factors. Composite is the weighted sum. Category B is built on in-window, in-radius evidence alone. Scores below reflect the Section 07 corrections.</p>
+<table>
+  <tr><th style="width:47%">Factor</th><th class="num" style="width:8%">Score</th><th style="width:45%">Basis</th></tr>
+  <tr class="cat"><td>A · SITE AND PROPERTY</td><td class="num">31.0</td><td>Weight 25% · contributes 7.75</td></tr>
+  <tr><td>Structural and occupancy baseline</td><td class="num">15</td><td>2020 construction, owner-occupied single family <span class="tag">[V]</span></td></tr>
+  <tr><td>Target appeal: publicly marketed high-value residence</td><td class="num">55</td><td>Full interior photography indexed against a named address <span class="tag tag-a">[A]</span></td></tr>
+  <tr><td>Perimeter and approach exposure</td><td class="num">24</td><td>Parkway frontage, open lakeside approach <span class="tag tag-a">[A]</span></td></tr>
+  <tr><td>Ownership and occupancy record clarity <span class="tag tag-q">[?]</span></td><td class="num">30</td><td>Aggregator 2018 sale conflicts with active 2025 and 2026 re-listings</td></tr>
+
+  <tr class="cat"><td>B · THREAT INTELLIGENCE, IN WINDOW AND IN RADIUS</td><td class="num">35.2</td><td>Weight 32% · contributes 11.26</td></tr>
+  <tr><td>Ambient violent crime, immediate ring</td><td class="num">10</td><td>Among the lowest-crime areas of the city <span class="tag">[S]</span></td></tr>
+  <tr><td>In-window property-crime pattern within the radius</td><td class="num">55</td><td>Lynnhurst direct hit, Nokomis 30-vehicle night, 87-vehicle night <span class="tag">[V]</span></td></tr>
+  <tr><td>Verified in-window violent incidents on the parkway</td><td class="num">8</td><td>None located across repeated searches. Floor reflects reporting gaps <span class="tag tag-q">[?]</span></td></tr>
+  <tr><td>In-window violent crime within the radius</td><td class="num">55</td><td>Lake St cluster (3 dead), Loring Park (3 dead), 2 federal shootings, Uptown homicide <span class="tag">[V]</span></td></tr>
+  <tr><td>In-window vehicular threat on or near the route</td><td class="num">48</td><td>1 May East Harriet collision, 4 Sep pursuit crash, Ferrier death <span class="tag">[V]</span></td></tr>
+
+  <tr class="cat"><td>C · VULNERABILITY AND ENVIRONMENTAL</td><td class="num">42.9</td><td>Weight 43% · contributes 18.43</td></tr>
+  <tr><td>Activity exposure: solo, pre-dawn, full darkness</td><td class="num">60</td><td>No companion, no witnesses, seasonal darkness for the whole run <span class="tag tag-a">[A]</span></td></tr>
+  <tr><td>Route predictability</td><td class="num">55</td><td>Fixed route at a fixed time. The most controllable factor scored <span class="tag tag-a">[A]</span></td></tr>
+  <tr><td>Patrol coverage seam</td><td class="num">48</td><td>MPD and MPRB boundary, Park Patrol weighted to summer <span class="tag">[V]</span></td></tr>
+  <tr><td>Lighting and sightlines <span class="tag tag-q">[?]</span></td><td class="num">42</td><td>Unverified. Scored conservatively pending physical recon</td></tr>
+  <tr><td>Active construction on the route corridor</td><td class="num">40</td><td>Oliver Ave and W 50th St works, Jul 2026 into summer 2027 <span class="tag">[V]</span></td></tr>
+  <tr><td>Offender-presence window overlap</td><td class="num">30</td><td>In-window sprees ran 01:30 to 09:15 and 02:00 to 07:00. Both cover 05:30 <span class="tag">[V]</span></td></tr>
+  <tr><td>Communications and response</td><td class="num">25</td><td>Populated residential corridor, carry-phone assumed <span class="tag tag-a">[A]</span></td></tr>
+
+  <tr class="tot"><td>COMPOSITE &nbsp; (0.25 × 31.0) + (0.32 × 35.2) + (0.43 × 42.9)</td><td class="num">37</td><td>TIER 3 · MODERATE</td></tr>
+</table>
+
+<h2><span class="n">06</span> Banding and Tests</h2>
+<div class="two">
+  <div>
+    <table>
+      <tr><th>Composite</th><th>Tier</th><th>Label</th></tr>
+      <tr><td class="num">81 to 100</td><td>1</td><td>CRITICAL</td></tr>
+      <tr><td class="num">61 to 80</td><td>2</td><td>HIGH</td></tr>
+      <tr><td class="num">36 to 60</td><td>3</td><td><b>MODERATE</b></td></tr>
+      <tr><td class="num">21 to 35</td><td>4</td><td>LOW</td></tr>
+      <tr><td class="num">0 to 20</td><td>5</td><td>MINIMAL</td></tr>
+    </table>
+    <p class="src" style="margin-top:3px">Score history: 34, 36, 36, 37, 37 final. Five scopes and one QC pass, one band throughout. A three-point spread is inside the instrument's noise. This is a directional indicator, not a calibrated instrument.</p>
+  </div>
+  <div class="box">
+    <p><b>Sensitivity test.</b> Hold A and B constant and reduce C to its ambient environmental residue of roughly 18, which is what remains once activity exposure, route predictability, construction and the offender window fall away and the patrol seam stops applying to a resident indoors at 05:30. The composite becomes <b>(0.25 × 31.0) + (0.32 × 35.2) + (0.43 × 18) = 27</b>, which is <b>Tier 4 LOW</b>.</p>
+    <p style="margin-top:3px"><b>Scope test.</b> The score has been computed at neighborhood scope and at 5-mile scope and reproduced the same band. Widening from one to five miles moved the composite by one point. <b>Geography is not what drives this assessment. The behavior is.</b> That conclusion has now survived a deliberate attempt to break it.</p>
+  </div>
+</div>
+
+<h2><span class="n">07</span> Quality Control Log</h2>
+<div class="box box-r">
+  <p><b>Six items were removed on date. Each reads as current and on-point, and each would have inflated this assessment.</b></p>
+  <table style="margin-top:2px">
+    <tr><th style="width:40%">Item</th><th style="width:24%">Appears to be</th><th>Verified as</th></tr>
+    <tr><td>"5 of 7 carjackings ringing Lake Harriet, Nov 14 to 25"</td><td>In window</td><td><b>November 2021</b></td></tr>
+    <tr><td>MPD 5th Precinct alert, victims "alone or with one other person, either walking"</td><td>Current, precisely on point</td><td>Cites Inspector <b>Katie Blackwell</b>, who left that command <b>August 2023</b></td></tr>
+    <tr><td>Band shell shooting</td><td>"October 2026" per a search summary</td><td><b>24 October 2023</b> per charging records</td></tr>
+    <tr><td>"Police report rise in crime along Lake Nokomis, Minnehaha Creek"</td><td>Current warning, on a creek that passes this lake</td><td><b>February 2021</b></td></tr>
+    <tr><td>"Three arrested after string of robberies in Uptown"</td><td>In window</td><td><b>September 2024</b></td></tr>
+    <tr><td>Linden Hills, "13 larceny and theft offenses, highest month in the past year"</td><td>August 2026 local trend marker</td><td><b>Patch article dates to 2022.</b> Figure unsupported for this window</td></tr>
+  </table>
+  <p style="margin-top:4px"><b>Three factual errors were corrected, two of which had already been published in an earlier revision of this document.</b></p>
+  <ul>
+    <li><b>Published error.</b> The Linden Hills August figure above appeared in Revisions C and D as a verified in-window trend marker. It is struck. Category B's property-crime factor drops from 58 to 55 as a result.</li>
+    <li><b>Published error.</b> The 1 May collision passenger injury was recorded as a compound <i>leg</i> fracture. The charging record describes a compound <b>neck</b> fracture with a brain bleed. Corrected in Section 03.</li>
+    <li><b>Caught before publication.</b> The Loring Park casualty figures were initially read as three officers shot plus four exposed to an airborne substance. Verified reporting describes <b>two officers shot</b>, a third cut by glass, and <b>seven people wounded by gunfire in total</b>. Section 03 carries the verified figures.</li>
+  </ul>
+  <p style="margin-top:4px"><b>PI assesses date and detail verification, not collection volume, as the binding constraint on this assessment.</b> Nine separate corrections were required across six sources. Search result summaries proved unreliable on dates in particular, and every item in Section 03 was therefore checked against a primary report naming the event date.</p>
+</div>
+
+<h2><span class="n">08</span> Excluded on Distance, and One Named Exclusion</h2>
+<p><b>The Annunciation church shooting is excluded, and it is named here so the omission is visible rather than silent.</b> It occurred roughly 1.5 miles from the subject address, comfortably inside the radius, and it drives the MPD 5th Precinct year-over-year shooting-victim increase on its own. It happened on <b>27 August 2025</b>, eighteen days before this window opens. Under the filters set for this assessment it does not qualify. <b>Excluded on distance:</b> Elm Creek Park Reserve assault (Maple Grove, roughly 15 miles), the North Minneapolis pursuit crash at N Lyndale and 41st Ave N (roughly 7 miles), and the Boom Island and northeast Minneapolis break-in sites at or beyond the boundary.</p>
+
+<h2><span class="n">09</span> Collection Gaps and Outstanding Question</h2>
+<table>
+  <tr><th style="width:8%">Priority</th><th style="width:28%">Gap</th><th>Status and route to closure</th></tr>
+  <tr><td><b>HIGH</b></td><td>Incident-level data, in-window, geofenced</td><td><b>Open, and it is the gap that would settle Section 04.</b> The City ArcGIS FeatureServer (org <code>79kfd2K6fskCAkyg</code>, layers <code>crime_data_2025</code> and <code>Police_Incidents_2026</code>) supports a radius query directly. This environment's egress policy returns 403 for <code>services1.arcgis.com</code> and <code>opendata.minneapolismn.gov</code>. The query is written and staged in COLLECTION-STATUS.md and runs anywhere with egress</td></tr>
+  <tr><td><b>HIGH</b></td><td>Two data practices requests, not one</td><td><b>Open.</b> An MGDPA request to MPD Records covers the residential blocks and misses the parkway, which is Park Board jurisdiction. A parallel MPRB request is drafted (Responsible Authority: Jennifer Ringold), including a patrol-hours element for 04:00 to 07:00 that would measure the coverage seam rather than infer it</td></tr>
+  <tr><td><b>HIGH</b></td><td>Physical route reconnaissance</td><td><b>Open, owner-only.</b> Walk or drive the route once at 05:30 in the current season with the Oliver Ave works in place. Lighting, sightlines, cover, footing, phone signal. A summer recon does not answer a November question. This gap is why lighting is scored conservatively at 42</td></tr>
+  <tr><td><b>HIGH</b></td><td>Resident-forum layer</td><td><b>Open, owner-only.</b> Nextdoor 55419 is login-walled. Reddit refuses Anthropic's crawler outright, so no Claude session can reach it. Search strings staged in Annex A. Capture the event date and firsthand-versus-repost for every hit</td></tr>
+  <tr><td>MED</td><td>Predatory-offender proximity</td><td><b>Open.</b> Minnesota DOC Level 3 registrant search and BCA non-compliant search against the address. Interactive lookups</td></tr>
+</table>
+<p style="margin-top:3px">The single open analytic question is the runner's own risk profile, which is not on record in this file and which determines how heavily the pre-window activity-matched precedents at Section 02 should weigh against the clean in-window parkway record at Section 04. PI recommends resolving it before this assessment is acted on. No other open item changes the tier.</p>
+
+<h2><span class="n">10</span> Sources</h2>
+<p class="src">Star Tribune: Loring Park mass shooting, victims and gunman (Sep 2026), Lake Street shootings and second death (Sep 2025), vehicle break-in sprees (2025 to 2026), auto theft surge (2026). MPR News: Loring Park shooting and shooter identification (2 to 3 Sep 2026), Renée Macklin Good coverage, Lake Street shootings (Sep 2025). CBS Minnesota and WCCO: southwest Minneapolis car break-ins (10 May 2026), south-side vehicle damage (27 Apr 2026), Lake Street shooting charges (Sep 2025), Ferrier death and arrests (May 2026), Bde Maka Ska recovery (Aug 2026), Hawkins charges (May 2026). KSTP: East Harriet collision and charging (May 2026), Lake Nokomis overnight spree (Apr 2026), 87-vehicle spree (Aug 2026), Stevens Avenue shooting death (Sep 2025). FOX 9: East Harriet collision detail and charges (May 2026), stolen vehicle pursuit (4 Sep 2026), Lake Street homicide charges, encampment shooting charges. KARE 11: encampment shooting charges, MPD pursuit policy, Lake Street victim death. Southwest Voices: East Harriet high-speed chase (May 2026), Lynnhurst and East Harriet coverage (2026). NPR and ProPublica: Alex Pretti and Renée Good, federal investigations (2026). City of Minneapolis: Precinct 5, 28th and Lake incident notice (Sep 2025), shooting incident notice (Sep 2026), Open Data portal. Minneapolis Park and Recreation Board: Park Police and Safety, Park Police Incident Summaries, Public Data. Hennepin County and MPD charging bulletins: Uptown homicide (Jun 2026), juvenile robbery arrests (Apr 2026), Stevens Avenue death notice (Sep 2025).</p>
+
+<div class="foot">
+  <b>Scope.</b> FINAL admits only events occurring between 14 Sep 2025 and 14 Sep 2026 within approximately 5 miles of the subject address. Publication date does not qualify an item. Distances are estimated from street geography and are approximate; no geocoding service was reachable from this environment. Revision C holds the neighborhood-scoped version and the pre-window historical record, including the September 2015 parkway assault, the July 2017 escalation series and the November 2020 jogger strike, none of which qualify here.<br>
+  <b>Source tags.</b> [V] verified primary · [S] reliable secondary · [A] analysis · [?] gap. Consumer crime-score aggregators (CrimeGrade, AreaVibes, NeighborhoodScout, Niche, Safemap, SpotCrime, HomeSnacks, minneapoliscrime.com) returned mutually inconsistent figures and are excluded throughout. Several surfaced repeatedly during collection and were discarded rather than used.<br>
+  <b>Standing caveat.</b> Absence of coverage is not confirmation of safety. The Section 04 null result means no incident was reported in an accessible source, and nothing more. Four HIGH-priority gaps remain open, two of which only the owner can close. This document should be read against them.<br>
+  <b>Typeface.</b> Human BBY 45 Light specified, body at 7.0pt rather than the 11pt house standard to hold the event table and matrix within the page budget. Substituted at render time where the family is unavailable.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<title>Protective Intelligence — Residential Threat Assessment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&family=Source+Serif+4:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#ffffff;color:#1e293b;font-family:'Source Sans 3','IBM Plex Sans',sans-serif;width:1200px;margin:0 auto;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:13px;widows:3;orphans:3}
+.mono{font-family:'IBM Plex Mono',monospace}
+.page{width:1200px;min-height:100vh;position:relative;overflow:visible}
+
+.hero{position:relative;background:#ffffff;border-bottom:3px solid #0f172a;padding:28px 52px 22px}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.hero-logo .logo-mark{font-size:14px;font-weight:900;color:#0f172a;letter-spacing:0.3px;line-height:1}
+.hero-logo .logo-sub{font-size:8px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.hero-logo .logo-rule{width:100%;height:2px;background:linear-gradient(90deg,#FFDB00,transparent);margin-top:3px}
+.hero-classification{position:static;display:inline-block;margin-top:8px;padding:4px 11px;background:rgba(146,64,14,0.07);border:1px solid rgba(146,64,14,0.2);border-radius:3px;font-size:8.5px;font-weight:800;color:#92400e;letter-spacing:2px}
+.hero-meta{text-align:right}
+.hero-meta-row{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.hero-meta-item{text-align:right}
+.hero-meta-item .label{font-size:8px;color:#94a3b8;text-transform:uppercase;letter-spacing:2px}
+.hero-meta-item .value{font-size:11px;color:#0f172a;font-weight:700;margin-top:1px;font-family:'IBM Plex Mono',monospace}
+.hero-divider{height:1px;background:#e5e7eb;margin-bottom:20px}
+.hero-title{font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:6px;color:#0f172a}
+.hero-sub{font-size:12px;color:#64748b;font-weight:400;letter-spacing:0.2px}
+.hero-content{padding:0}
+
+.body{padding:20px 52px 40px;position:relative}
+
+.stats{display:flex;gap:8px;margin-bottom:20px}
+.stat-card{flex:1;padding:14px 10px;background:#fff;border:1px solid #e5e7eb;border-radius:5px;text-align:center;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.red::before{background:#b91c1c}
+.stat-card.amber::before{background:#92400e}
+.stat-card.blue::before{background:#0f172a}
+.stat-card.green::before{background:#065f46}
+.stat-val{font-size:28px;font-weight:900;line-height:1;font-family:'IBM Plex Mono',monospace}
+.stat-label{font-size:9.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-top:5px}
+.stat-sub{font-size:10px;font-weight:700;margin-top:3px}
+
+.section-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-top:24px}
+.section-head .icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.section-head .text{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
+.section-head .line{flex:1;height:1px;background:#e5e7eb}
+
+.bluf{padding:12px 16px;background:rgba(185,28,28,0.03);border:1px solid rgba(185,28,28,0.12);border-left:4px solid #b91c1c;border-radius:4px;margin-bottom:18px}
+.bluf-label{font-size:9px;font-weight:800;color:#b91c1c;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.bluf-text{font-size:12px;color:#334155;line-height:1.8}
+.bluf-text strong{color:#b91c1c}
+.bluf-rec{margin-top:8px;padding:9px 12px;background:rgba(185,28,28,0.04);border-radius:4px;font-size:11px;color:#991b1b;font-weight:600;line-height:1.65}
+
+.threats{display:flex;flex-direction:column;gap:6px}
+.threat-row{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#fff;border-radius:5px;border:1px solid #f1f5f9;border-left:3px solid transparent}
+.threat-row.high{border-left-color:#92400e}
+.threat-rank{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;font-family:'IBM Plex Mono',monospace}
+.threat-rank.high{background:rgba(146,64,14,0.06);color:#92400e}
+.threat-site{width:120px;font-size:10px;font-weight:700;color:#94a3b8;flex-shrink:0;letter-spacing:0.3px;text-transform:uppercase}
+.threat-name{width:200px;font-size:12px;font-weight:700;flex-shrink:0}
+.threat-badge{padding:2px 8px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;flex-shrink:0;width:70px;text-align:center}
+.threat-badge.high{background:rgba(146,64,14,0.06);color:#92400e;border:1px solid rgba(146,64,14,0.12)}
+.threat-bar-wrap{width:60px;height:5px;background:rgba(0,0,0,0.06);border-radius:3px;flex-shrink:0;overflow:hidden}
+.threat-bar{height:100%;border-radius:3px}
+.threat-detail{flex:1;font-size:11px;color:#64748b;line-height:1.55}
+
+.sites{display:flex;gap:10px;align-items:flex-start}
+.site-card{flex:1;background:#fff;border:1px solid #e5e7eb;border-radius:6px;border-top:3px solid transparent;position:relative;overflow:hidden}
+.site-card.amber{border-top-color:#92400e}
+.site-body{padding:12px 14px 14px}
+.site-name{font-size:13px;font-weight:800;margin-bottom:3px;color:#0f172a}
+.site-addr{font-size:8.5px;color:#94a3b8;margin-bottom:3px;font-family:'IBM Plex Mono',monospace;line-height:1.5}
+.site-risk-row{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.site-risk-badge{padding:3px 10px;border-radius:3px;font-size:9px;font-weight:800;letter-spacing:0.8px}
+.site-risk-badge.high{background:rgba(146,64,14,0.07);color:#92400e;border:1px solid rgba(146,64,14,0.15)}
+.site-risk-type{font-size:9px;color:#94a3b8;font-style:italic}
+.site-divider{height:1px;background:#f1f5f9;margin:7px 0}
+.site-item{display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid #f8fafc}
+.site-item:last-child{border-bottom:none}
+.site-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.site-dot.amber{background:#92400e}
+.site-dot.red{background:#b91c1c}
+.site-dot.gray{background:#94a3b8}
+.site-item-text{font-size:10.5px;color:#334155;line-height:1.55}
+.site-item-text strong{color:#b91c1c;font-weight:700}
+
+.seq-table{width:100%;border-collapse:collapse;font-size:13px;widows:3;orphans:3}
+.seq-table th{background:#0f172a;color:#fff;padding:8px 14px;text-align:left;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.seq-table td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.seq-table tr:nth-child(even) td{background:#fafaf8}
+
+.intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.intel-item{display:flex;gap:10px;padding:10px 13px;background:#fff;border:1px solid #f1f5f9;border-radius:5px;border-left:3px solid #e5e7eb}
+.intel-item.crit-i{border-left-color:#b91c1c}
+.intel-item.high-i{border-left-color:#92400e}
+.intel-item.info-i{border-left-color:#334155}
+.intel-meta{flex-shrink:0;width:90px}
+.intel-source{font-size:9px;font-weight:700;color:#0f172a;font-family:'IBM Plex Mono',monospace}
+.intel-date{font-size:8.5px;color:#94a3b8;margin-top:2px}
+.intel-text{font-size:11px;color:#334155;line-height:1.6;flex:1}
+.intel-text strong{color:#0f172a;font-weight:700}
+
+.emerg-grid{display:flex;gap:8px;margin-bottom:10px}
+.emerg-card{flex:1;padding:11px 13px;background:#fff;border:1px solid #e5e7eb;border-radius:5px;border-top:3px solid transparent}
+.emerg-card.embassy{border-top-color:#0f172a}
+.emerg-card.police{border-top-color:#92400e}
+.emerg-card.medical{border-top-color:#065f46}
+.emerg-title{font-size:12px;font-weight:800;margin-bottom:7px}
+.emerg-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f1f5f9;gap:10px}
+.emerg-row:last-child{border-bottom:none}
+.emerg-label{font-size:10.5px;color:#64748b}
+.emerg-value{font-size:10.5px;font-weight:700;color:#1e293b;font-family:'IBM Plex Mono',monospace;letter-spacing:0.3px;text-align:right}
+.emerg-warn{font-size:8px;color:#92400e;margin-top:5px;line-height:1.4;padding:4px 8px;background:rgba(245,158,11,0.06);border-radius:3px}
+
+.footer{margin-top:20px;padding:14px 0;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
+.footer-left{font-size:10px;color:#64748b;line-height:1.6}
+
+.site-map-placeholder{height:190px;background:#f1f5f9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid #e5e7eb}
+.smp-icon{font-size:28px;opacity:0.4}
+.smp-label{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px}
+.smp-addr{font-size:10px;color:#94a3b8;font-family:'IBM Plex Mono',monospace}
+.smp-link{font-size:10px;color:#92400e;text-decoration:none;border:1px solid rgba(146,64,14,0.2);padding:3px 10px;border-radius:3px;margin-top:4px}
+
+.env-grid{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}
+.env-item{padding:10px 14px;background:#fff;border:1px solid #f1f5f9;border-radius:5px;display:flex;gap:12px;align-items:flex-start}
+.env-label{font-size:9px;font-weight:800;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px;flex-shrink:0;width:80px;margin-top:1px;font-family:'IBM Plex Mono',monospace}
+.env-text{font-size:11px;color:#334155;line-height:1.6;flex:1}
+
+cite.src{font-style:normal;font-size:8.5px;color:#94a3b8;font-family:'IBM Plex Mono',monospace;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:2px;padding:0px 5px;margin-left:5px;white-space:nowrap;vertical-align:middle;display:inline-block}
+
+@media print {
+  @page { size: 1300px auto; margin: 14mm 14mm 10mm 14mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box !important; }
+  html { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  body { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 34px 0 0 0 !important; background: #ffffff !important; overflow: visible !important; font-size: 10.5px !important; line-height: 1.45 !important; }
+  .page { width: 100% !important; max-width: 100% !important; overflow: visible !important; min-height: unset !important; }
+  .pdf-page-header { display: flex !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; height: 28px !important; background: #0f172a !important; align-items: center !important; justify-content: space-between !important; padding: 0 14mm !important; z-index: 9999 !important; border-bottom: 2px solid #FFDB00 !important; }
+  .pdf-page-header .ph-left { font-size: 8.5px !important; font-weight: 800 !important; color: #ffffff !important; letter-spacing: 1.5px !important; text-transform: uppercase !important; font-family: 'IBM Plex Mono', monospace !important; }
+  .pdf-page-header .ph-center, .pdf-page-header .ph-right { font-size: 8px !important; color: #8BAFD4 !important; letter-spacing: 0.5px !important; font-family: 'IBM Plex Mono', monospace !important; }
+  .stat-card, .site-card, .emerg-card, .intel-item, .threat-row { box-shadow: none !important; }
+  .threat-row, .intel-item, .stat-card, .emerg-card { break-inside: avoid !important; page-break-inside: avoid !important; }
+  .section-head { break-after: avoid !important; page-break-after: avoid !important; }
+  .bluf, .sites, .site-card, .footer { break-inside: avoid !important; page-break-inside: avoid !important; }
+  .hero { padding: 12px 0 10px 0 !important; border-bottom-width: 2px !important; }
+  .hero-top { margin-bottom: 8px !important; }
+  .hero-title { font-size: 24px !important; letter-spacing: -0.5px !important; margin-bottom: 4px !important; }
+  .hero-sub { font-size: 10px !important; }
+  .body { padding: 10px 0 24px 0 !important; }
+  .stats { gap: 6px !important; margin-bottom: 12px !important; }
+  .stat-card { padding: 9px 6px !important; }
+  .stat-val { font-size: 19px !important; }
+  .stat-label { font-size: 7.5px !important; margin-top: 4px !important; letter-spacing: 0.8px !important; }
+  .stat-sub { font-size: 8px !important; margin-top: 2px !important; }
+  .env-grid { gap: 4px !important; }
+  .env-item { padding: 7px 10px !important; gap: 8px !important; }
+  .env-label { font-size: 8px !important; width: 65px !important; }
+  .env-text { font-size: 9.5px !important; line-height: 1.45 !important; }
+  .bluf { padding: 10px 13px !important; margin-bottom: 12px !important; }
+  .bluf-label { font-size: 7.5px !important; margin-bottom: 5px !important; }
+  .bluf-text { font-size: 9.5px !important; line-height: 1.55 !important; }
+  .bluf-rec { font-size: 9px !important; padding: 7px 10px !important; margin-top: 6px !important; line-height: 1.5 !important; }
+  .section-head { margin-top: 12px !important; margin-bottom: 7px !important; gap: 7px !important; }
+  .section-head .icon { width: 16px !important; height: 16px !important; font-size: 8px !important; }
+  .section-head .text { font-size: 9.5px !important; }
+  .intel-grid { display: flex !important; flex-direction: column !important; gap: 5px !important; }
+  .intel-item { padding: 7px 9px !important; gap: 10px !important; width: 100% !important; }
+  .intel-meta { width: 80px !important; flex-shrink: 0 !important; }
+  .intel-source { font-size: 8px !important; }
+  .intel-date { font-size: 7.5px !important; margin-top: 1px !important; }
+  .intel-text { font-size: 9.5px !important; line-height: 1.5 !important; }
+  .threats { gap: 4px !important; }
+  .threat-row { padding: 6px 12px !important; gap: 10px !important; width: 100% !important; }
+  .threat-site { width: 90px !important; font-size: 8px !important; }
+  .threat-name { width: 170px !important; font-size: 10px !important; }
+  .threat-badge { width: 58px !important; font-size: 8px !important; padding: 2px 5px !important; }
+  .threat-bar-wrap { width: 55px !important; }
+  .threat-detail { font-size: 9px !important; line-height: 1.45 !important; }
+  .site-body { padding: 9px 10px 10px !important; }
+  .site-name { font-size: 11px !important; }
+  .site-item-text { font-size: 8.5px !important; line-height: 1.4 !important; }
+  .emerg-grid { gap: 8px !important; }
+  .emerg-card { padding: 9px 11px !important; }
+  .emerg-title { font-size: 10px !important; margin-bottom: 6px !important; }
+  .emerg-label, .emerg-value { font-size: 9px !important; }
+  .emerg-row { padding: 3px 0 !important; }
+  .emerg-warn { font-size: 8px !important; padding: 4px 7px !important; margin-top: 5px !important; }
+  .footer { padding: 10px 0 !important; margin-top: 10px !important; }
+  .footer-left { font-size: 8.5px !important; line-height: 1.55 !important; }
+  cite.src { font-size: 7px !important; padding: 0px 4px !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="pdf-page-header">
+  <div class="ph-left">Protective Intelligence &amp; Investigations</div>
+  <div class="ph-center">Residential Threat Assessment &nbsp;|&nbsp; Minneapolis, Minnesota</div>
+  <div class="ph-right">14 September 2026 &nbsp;·&nbsp; CONFIDENTIAL</div>
+</div>
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-logo">
+      <div class="logo-mark">Protective Intelligence</div>
+      <div class="logo-sub">Best Buy &nbsp;·&nbsp; Enterprise PI &amp; Investigations</div>
+      <div class="logo-rule"></div>
+      <div class="hero-classification">CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT</div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-row">
+        <div class="hero-meta-item"><div class="label">Issue Date</div><div class="value">14 Sept 2026</div></div>
+        <div class="hero-meta-item"><div class="label">Reference</div><div class="value">PI-2026-RSA-001</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-content">
+    <div class="hero-title">Residential Threat Assessment</div>
+    <div class="hero-sub">4889 East Lake Harriet Parkway &nbsp;·&nbsp; Minneapolis, Minnesota 55419 &nbsp;·&nbsp; Evidence window: the last 12 months only (14 Sep 2025 – 14 Sep 2026), within five miles of the home. Anything older or farther was left out.</div>
+  </div>
+</div>
+
+<div class="body">
+
+<div class="stats">
+  <div class="stat-card amber">
+    <div class="stat-val" style="color:#92400e">MODERATE</div>
+    <div class="stat-label">Overall Rating</div>
+    <div class="stat-sub" style="color:#92400e">37 out of 100</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-val" style="color:#065f46">0</div>
+    <div class="stat-label">Violent incidents on the lake path</div>
+    <div class="stat-sub" style="color:#065f46">Last 12 months</div>
+  </div>
+  <div class="stat-card amber">
+    <div class="stat-val" style="color:#92400e">1 mi</div>
+    <div class="stat-label">Distance to the nearest serious incident</div>
+    <div class="stat-sub" style="color:#92400e">A crash, not a crime against a person</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-val" style="color:#b91c1c">05:30</div>
+    <div class="stat-label">Highest-risk time to run</div>
+    <div class="stat-sub" style="color:#b91c1c">Solo, pre-dawn, dark</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-val" style="color:#065f46">LOW</div>
+    <div class="stat-label">Rating with a daylight run</div>
+    <div class="stat-sub" style="color:#065f46">Drops to 27 / 100</div>
+  </div>
+</div>
+
+<div class="bluf">
+  <div class="bluf-label">PI Assessment</div>
+  <div class="bluf-text">
+    This is a safe neighborhood. Theft — smashed car windows and stolen packages — is the everyday crime here, not violence. In the last 12 months we found <strong>no reported assaults, robberies, or other violent crimes</strong> on or beside the Lake Harriet path. Eighteen events met the bar within five miles, and the nearest of any kind was a car crash about a mile away.
+  </div>
+  <div class="bluf-rec">
+    The risk in this report is not the house. It is the <strong>5:30 a.m. solo run</strong> — alone, in the dark, on a quiet and unlit stretch of the lake. That habit, not the neighborhood, is what makes this Moderate instead of Low. <strong>Run after sunrise</strong> and the rating drops to Low.
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(15,23,42,0.06);font-size:10px;font-weight:800;color:#0f172a;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#0f172a">The Area</div>
+  <div class="line"></div>
+</div>
+<div class="env-grid">
+  <div class="env-item" style="border-left:3px solid #0f172a">
+    <div class="env-label">Neighborhood</div>
+    <div class="env-text">The home sits on the Lynnhurst / East Harriet border, across the parkway from Lake Harriet. The surrounding ring — East Harriet, Lynnhurst, Fulton, and Linden Hills — is one of the quieter, wealthier parts of Minneapolis. <cite class="src">City of Minneapolis, Ward 13</cite></div>
+  </div>
+  <div class="env-item" style="border-left:3px solid #92400e">
+    <div class="env-label">Who Patrols What</div>
+    <div class="env-text">The house and the running path belong to two different police departments. Minneapolis Police (5th Precinct) cover the home; the Park Police cover the lake, and they focus on the lakes mostly in summer. Before sunrise in winter, both are at their quietest — help will not arrive fast. <cite class="src">MPD 5th Precinct / MPRB</cite></div>
+  </div>
+  <div class="env-item" style="border-left:3px solid #b91c1c">
+    <div class="env-label">The Property Itself</div>
+    <div class="env-text">The home is publicly listed for sale at <strong>$4,450,000</strong>, with interior photos and a floor plan viewable by anyone online. A high-value, openly advertised house on a visible parkway is a burglary target on paper — keep valuables out of sight and lock up during showings. <cite class="src">MLS #7050178; Coldwell Banker / Redfin, 2026</cite></div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(185,28,28,0.07);font-size:10px;font-weight:800;color:#b91c1c;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#b91c1c">Crime in the Last 12 Months</div>
+  <div class="line"></div>
+</div>
+<table class="seq-table">
+  <thead>
+    <tr>
+      <th style="width:90px">Date</th>
+      <th>What Happened</th>
+      <th style="width:170px">Where</th>
+      <th style="width:190px">What It Means</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>10 May 2026</strong></td>
+      <td>A resident came home from a weekend away to a smashed car window; nothing taken. Other break-ins the same night in Kenny and Armatage, just south. <cite class="src">WCCO / CBS Minnesota</cite></td>
+      <td>Lynnhurst — your own neighborhood</td>
+      <td>The real risk to your street is parked cars</td>
+    </tr>
+    <tr>
+      <td><strong>1 May 2026</strong></td>
+      <td>A stolen car ran a stop sign at 80 mph with its lights off and hit a State Patrol car. The trooper was pinned and broke a leg bone and shoulder blade; a passenger suffered a broken neck and a brain bleed. The driver, 19, ran and was arrested. <cite class="src">Southwest Voices; FOX 9; KSTP</cite></td>
+      <td>East Harriet — 46th &amp; Aldrich, just east of the lake</td>
+      <td><strong>The main danger to a walker or runner: fast, unlit cars</strong></td>
+    </tr>
+    <tr>
+      <td><strong>27 Apr 2026</strong></td>
+      <td>Police reported more than 30 vehicles damaged on the south side in eight hours. <cite class="src">CBS Minnesota</cite></td>
+      <td>South Minneapolis — includes this area</td>
+      <td>Car vandals come in waves, one street at a time</td>
+    </tr>
+    <tr>
+      <td><strong>21 Jun 2026</strong></td>
+      <td>A homicide in Uptown; one man charged with two counts of second-degree murder. This is the closest killing to the home in the whole 12 months. <cite class="src">MPD charging bulletin; Star Tribune</cite></td>
+      <td>Lyndale Ave S, Uptown — about 2.5 miles</td>
+      <td>Nearest violent crime, and not close</td>
+    </tr>
+    <tr>
+      <td><strong>2025–26</strong></td>
+      <td>Overnight car window-smashing reached Linden Hills, northwest of the lake. The 5th Precinct tied the pattern to a juvenile group working citywide. <cite class="src">Star Tribune; KSTP</cite></td>
+      <td>Linden Hills — next door</td>
+      <td>Same wave pattern as the May break-ins</td>
+    </tr>
+    <tr>
+      <td><strong>13 Jul 2026 on</strong></td>
+      <td>Sewer rebuild on Oliver Avenue (50th to the parkway) and W 50th Street (Oliver to Penn). Runs into next summer. <cite class="src">Southwest Voices; City of Minneapolis</cite></td>
+      <td><strong>On the running route</strong></td>
+      <td>Changed lighting, footing, and detours all winter</td>
+    </tr>
+  </tbody>
+</table>
+<div style="margin-top:8px;padding:9px 13px;background:rgba(146,64,14,0.04);border-left:3px solid #92400e;border-radius:4px;font-size:10.5px;color:#334155;line-height:1.6">
+  <strong>These are the nearest of 18 events inside the five-mile ring.</strong> The rest sit three to four miles out and did not reach this neighborhood: a mass shooting near Loring Park on 2 September, three shootings along Lake Street on 14–15 September 2025, and two people shot by federal agents in January. They are listed in full in the long-form assessment.
+</div>
+
+<div style="break-before:page;page-break-before:always"></div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(146,64,14,0.07);font-size:10px;font-weight:800;color:#92400e;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#92400e">Walking &amp; Running — What Matters Near the Home</div>
+  <div class="line"></div>
+</div>
+<div class="threats">
+  <div class="threat-row high">
+    <div class="threat-rank high">1</div>
+    <div class="threat-site">On Foot</div>
+    <div class="threat-name">Fast, unlit vehicles — not people</div>
+    <div class="threat-badge high">HIGH</div>
+    <div class="threat-bar-wrap"><div class="threat-bar" style="width:75%;background:#92400e"></div></div>
+    <div class="threat-detail">The one serious incident this year was a stolen car running a stop sign at 80 mph before dawn. Police no longer chase stolen cars unless a violent felony is involved, so these vehicles keep moving. The break-in crews work at night, target parked cars, and stay away from people.</div>
+  </div>
+  <div class="threat-row high">
+    <div class="threat-rank high">2</div>
+    <div class="threat-site">Before Sunrise</div>
+    <div class="threat-name">Thin police coverage at 05:30</div>
+    <div class="threat-badge high">HIGH</div>
+    <div class="threat-bar-wrap"><div class="threat-bar" style="width:65%;background:#92400e"></div></div>
+    <div class="threat-detail">Park Police coverage of the lake is lightest in winter mornings, and it is a different department from the one that covers the home. Do not count on help arriving fast if something happens in the dark.</div>
+  </div>
+  <div class="threat-row high">
+    <div class="threat-rank high">3</div>
+    <div class="threat-site">All Winter</div>
+    <div class="threat-name">Construction on the route</div>
+    <div class="threat-badge high">WATCH</div>
+    <div class="threat-bar-wrap"><div class="threat-bar" style="width:55%;background:#92400e"></div></div>
+    <div class="threat-detail">The Oliver Avenue and W 50th Street sewer work runs into 2027. Expect dark stretches, detours, and uneven ground on part of the route through the dark months.</div>
+  </div>
+  <div class="threat-row high">
+    <div class="threat-rank high">4</div>
+    <div class="threat-site">Predictable</div>
+    <div class="threat-name">Same route, same time, every day</div>
+    <div class="threat-badge high">WATCH</div>
+    <div class="threat-bar-wrap"><div class="threat-bar" style="width:45%;background:#92400e"></div></div>
+    <div class="threat-detail">A fixed 05:30 run on a fixed route is the easiest thing to change — and the change that lowers this report's score the most. Vary the day, the time, and the direction.</div>
+  </div>
+  <div class="threat-row">
+    <div class="threat-rank" style="background:rgba(6,95,70,0.06);color:#065f46">5</div>
+    <div class="threat-site">Break-in crews</div>
+    <div class="threat-name">They avoid people — don't confront</div>
+    <div class="threat-badge" style="background:rgba(6,95,70,0.06);color:#065f46;border:1px solid rgba(6,95,70,0.12)">LOW</div>
+    <div class="threat-bar-wrap"><div class="threat-bar" style="width:30%;background:#065f46"></div></div>
+    <div class="threat-detail">The window-smash crews disperse from people. A man four miles from here died in May after confronting two people stealing his car. If you cross paths with one: distance and disengagement, never confrontation.</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(15,23,42,0.06);font-size:10px;font-weight:800;color:#0f172a;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#0f172a">The Property</div>
+  <div class="line"></div>
+</div>
+<div class="sites">
+  <div class="site-card amber">
+    <div class="site-map-placeholder">
+      <div class="smp-icon">📍</div>
+      <div class="smp-label">Lake Harriet — East Side</div>
+      <div class="smp-addr">4889 E Lake Harriet Pkwy, Minneapolis, MN 55419</div>
+      <a class="smp-link" href="https://www.google.com/maps/search/?api=1&amp;query=4889+E+Lake+Harriet+Pkwy+Minneapolis+MN" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+    </div>
+    <div class="site-body">
+    <div class="site-name">4889 East Lake Harriet Parkway</div>
+    <div class="site-addr">Single-family home · built 2020 · 7,606 sq ft · Lynnhurst / East Harriet border</div>
+    <div class="site-risk-row">
+      <span class="site-risk-badge high">MODERATE</span>
+      <span class="site-risk-type">Property crime exposure; no violence on record at the address</span>
+    </div>
+    <div class="site-divider"></div>
+    <div class="site-item">
+      <div class="site-dot red"></div>
+      <div class="site-item-text"><strong>The listing is the biggest exposure.</strong> Interior photos and the floor plan are online for anyone to study, tied to the street address. During showings and open houses, lock away or remove jewelry, documents, medications, and small electronics. <cite class="src">MLS #7050178</cite></div>
+    </div>
+    <div class="site-item">
+      <div class="site-dot amber"></div>
+      <div class="site-item-text"><strong>Six heated garage spaces</strong> (attached four-car plus detached two-car) are the largest day-to-day target: deadbolt the garage-to-house doors, shield the emergency release cords, and never leave remotes in parked vehicles. <cite class="src">MLS #7050178</cite></div>
+    </div>
+    <div class="site-item">
+      <div class="site-dot amber"></div>
+      <div class="site-item-text">The house fronts the parkway with an open lakeside approach. Package and mail theft are the neighborhood pattern — use a secure box or prompt pickup, with a camera on the porch.</div>
+    </div>
+    <div class="site-item">
+      <div class="site-dot gray"></div>
+      <div class="site-item-text">No incident at the address itself was found in public reporting from the last 12 months.</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(6,95,70,0.08);font-size:10px;font-weight:800;color:#065f46;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#065f46">What To Do</div>
+  <div class="line"></div>
+</div>
+<div class="intel-grid">
+  <div class="intel-item crit-i">
+    <div class="intel-meta"><div class="intel-source">REC 01</div><div class="intel-date">Running</div></div>
+    <div class="intel-text"><strong>Move the 05:30 run past sunrise.</strong> This single change takes the rating from Moderate (37) to Low (27). Nothing else moves the score this much.</div>
+  </div>
+  <div class="intel-item high-i">
+    <div class="intel-meta"><div class="intel-source">REC 02</div><div class="intel-date">Running</div></div>
+    <div class="intel-text"><strong>If you run in the dark anyway:</strong> lit streets next to houses, not the unlit lakeside and band shell stretches. Phone and ID on you; someone knows your route and return time. Light and reflective kit; one ear free of headphones; face traffic.</div>
+  </div>
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">REC 03</div><div class="intel-date">Running</div></div>
+    <div class="intel-text"><strong>Break the routine.</strong> Change the route and start time day to day, and use the posted walking detours around the construction on Oliver Avenue and W 50th Street.</div>
+  </div>
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">REC 04</div><div class="intel-date">The Home</div></div>
+    <div class="intel-text"><strong>De-risk showings while the home is listed.</strong> Agent-escorted tours only; valuables locked or off-site; no lockbox access left unsupervised.</div>
+  </div>
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">REC 05</div><div class="intel-date">The Home</div></div>
+    <div class="intel-text"><strong>Close the garage gap.</strong> Deadbolt garage-to-house doors, shield release cords, remotes out of parked cars, and a camera on each garage and the parkway approach.</div>
+  </div>
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">REC 06</div><div class="intel-date">Anytime</div></div>
+    <div class="intel-text"><strong>If approached: distance and light.</strong> Move toward houses, call 911. For smashed cars or suspicious idling vehicles, use 612-348-2345 — reports are what build the pattern record.</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(15,23,42,0.05);font-size:10px;font-weight:800;color:#0f172a;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#1e293b">What the Neighborhood Feels Like</div>
+  <div class="line"></div>
+</div>
+<div class="intel-grid">
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">LAKE HARRIET LOOP</div><div class="intel-date">1,600+ reviews</div></div>
+    <div class="intel-text"><strong>Busy and well-used in daylight.</strong> The walking loop stays active from morning to evening. The most common public complaint is crowds and parking — not crime.</div>
+  </div>
+  <div class="intel-item high-i">
+    <div class="intel-meta"><div class="intel-source">RESIDENT QUOTE</div><div class="intel-date">After spring break-ins</div></div>
+    <div class="intel-text"><em>“We think we live in a bubble here, but I guess not.”</em> — a Linden Hills resident, after the overnight car break-ins. The break-in wave, not violence, is what unsettled the neighborhood this year.</div>
+  </div>
+  <div class="intel-item info-i">
+    <div class="intel-meta"><div class="intel-source">NEIGHBORHOOD GROUPS</div><div class="intel-date">2026 agenda</div></div>
+    <div class="intel-text"><strong>Parks, not crime.</strong> The local association and press spent 2026 on the Lynnhurst Park plan, the wading pool, sewer work, and Porchfest. That is what a low-crime neighborhood looks like from the inside.</div>
+  </div>
+  <div class="intel-item" style="border-left-color:#6d28d9">
+    <div class="intel-meta"><div class="intel-source">NOT CHECKED</div><div class="intel-date">Needs your login</div></div>
+    <div class="intel-text"><strong>Nextdoor and neighborhood Reddit threads</strong> are behind logins, so the resident chatter layer was not read. Also open: the state's Level 3 offender search for the address, and a records request to the Park Police for early-morning patrol hours on the lake. None of these change the rating, but they would sharpen it.</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(146,64,14,0.07);font-size:10px;font-weight:800;color:#92400e;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#92400e">What the 12-Month Rule Leaves Out</div>
+  <div class="line"></div>
+</div>
+<div class="env-grid">
+  <div class="env-item" style="border-left:3px solid #92400e">
+    <div class="env-label">Read This</div>
+    <div class="env-text">Holding to the last 12 months removes <strong>the closest thing on record to the exact question being asked.</strong> In <strong>September 2015</strong> a solo runner was grabbed from behind and chased at <strong>5:30 a.m. on West Lake Harriet Parkway near Sheridan Avenue South</strong> — same time, same place, same activity. The rule also removes a run of escalating incidents on this lake in July 2017, and a jogger struck by a car on this parkway in November 2020. Those three are the most relevant events that exist for this location. <strong>The 12-month picture is less informative about the question, not safer.</strong> <cite class="src">WCCO / CBS Minnesota; Star Tribune</cite></div>
+  </div>
+  <div class="env-item" style="border-left:3px solid #0f172a">
+    <div class="env-label">And This</div>
+    <div class="env-text"><strong>"Nothing reported" is not "nothing happened."</strong> The clean record on the lake path means no incident reached a source we can read. It is not proof none occurred, and it cannot become proof until the police records requests come back. The city's own incident-level crime data would settle it and could not be reached during this work. Treat the clean record as encouraging, not as a guarantee.</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="icon" style="background:rgba(15,23,42,0.06);font-size:10px;font-weight:800;color:#0f172a;font-family:'IBM Plex Mono',monospace">▪</div>
+  <div class="text" style="color:#0f172a">Emergency Numbers</div>
+  <div class="line"></div>
+</div>
+<div class="emerg-grid">
+  <div class="emerg-card embassy">
+    <div class="emerg-title" style="color:#0f172a">Emergency — Any Phone</div>
+    <div class="emerg-row"><span class="emerg-label">Police / Fire / Medical</span><span class="emerg-value">911</span></div>
+    <div class="emerg-row"><span class="emerg-label">Poison Control</span><span class="emerg-value">800-222-1222</span></div>
+    <div class="emerg-row"><span class="emerg-label">Nearest Level I trauma center</span><span class="emerg-value" style="font-size:9px">HCMC · 701 Park Ave</span></div>
+    <div class="emerg-warn">On a pre-dawn run near the lake, expect slower response. Know the nearest cross street so you can give a location.</div>
+  </div>
+  <div class="emerg-card police">
+    <div class="emerg-title" style="color:#92400e">Police — Non-Emergency</div>
+    <div class="emerg-row"><span class="emerg-label"><strong>Police response, non-urgent</strong></span><span class="emerg-value" style="color:#92400e">612-348-2345</span></div>
+    <div class="emerg-row"><span class="emerg-label">MPD tip line (no response needed)</span><span class="emerg-value">612-673-5335</span></div>
+    <div class="emerg-row"><span class="emerg-label">MPD 5th Precinct direct</span><span class="emerg-value">612-673-5705</span></div>
+    <div class="emerg-row"><span class="emerg-label">City services · 311</span><span class="emerg-value" style="font-size:9.5px">311 · 7a–7p Mon–Fri</span></div>
+    <div class="emerg-warn"><strong>Use 612-348-2345, not 311, before 7 a.m.</strong> 311 is closed at the hour you run. Report smashed windows and suspicious idling vehicles the same morning — these reports are what build the pattern record that earns your block extra patrol.</div>
+  </div>
+  <div class="emerg-card medical">
+    <div class="emerg-title" style="color:#065f46">Home Safety</div>
+    <div class="emerg-row"><span class="emerg-label">Smoke / CO alarms</span><span class="emerg-value" style="font-size:9.5px">Test monthly</span></div>
+    <div class="emerg-row"><span class="emerg-label">Fire extinguisher</span><span class="emerg-value" style="font-size:9.5px">Kitchen + each level</span></div>
+    <div class="emerg-row"><span class="emerg-label">Meeting point &amp; escape plan</span><span class="emerg-value" style="font-size:9.5px">Household knows it</span></div>
+    <div class="emerg-warn" style="color:#065f46;background:rgba(6,95,70,0.04)">Worth keeping current regardless of the crime picture. This assessment did not measure fire or CO risk and takes no position on how it compares.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    Prepared by Protective Intelligence &amp; Investigations &nbsp;|&nbsp; Best Buy &nbsp;·&nbsp; Reference PI-2026-RSA-001<br>
+    Classification: CONFIDENTIAL // PROPRIETARY // ATTORNEY WORK PRODUCT<br>
+    Evidence: events occurring 14 Sep 2025 – 14 Sep 2026 within ~5 miles of the home. Publication date does not qualify an item; only the event date does. Every item was checked against an original report, a step that removed six items that read as current but were years old.<br>
+    Sources: WCCO / CBS Minnesota, Southwest Voices, Star Tribune, FOX 9, KSTP, MPR News, MPD charging bulletins, Minneapolis 5th Precinct, MPRB, City of Minneapolis, Hennepin Healthcare, MLS #7050178 (Coldwell Banker / Redfin)
+  </div>
+</div>
+
+</div><!-- body -->
+</div><!-- page -->
+</body></html>
