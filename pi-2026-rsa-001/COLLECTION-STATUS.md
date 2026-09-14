@@ -317,3 +317,30 @@ Score history: 34 · 36 · 36 · 37 · **37 final**. Five scopes and one QC pass
 - Matrix arithmetic recomputed independently: `(0.25 × 31.0) + (0.32 × 35.2) + (0.43 × 42.857) = 37.44 → 37`
 - All 14 event dates checked for real calendar dates and weekday consistency; window confirmed as exactly 365 days
 - Stated body point size matches the CSS
+
+---
+
+## 11. Doc set aligned to FINAL
+
+All three deliverables are now on the same basis: **events between 14 Sep 2025 and 14 Sep 2026, within ~5 miles of the subject address.** The scope inconsistency flagged in the Rev D and FINAL notes is closed.
+
+| Document | Was | Now | Pages |
+|---|---|---|---|
+| `PI-2026-RSA-001 Residential Threat Assessment` | FINAL | FINAL | 3 |
+| `PI-2026-RSA-001 Residential Threat Assessment (Brief)` | **Rev B** (carried the MCCA citywide table, BCA figures, "Raise the Age", Elm Creek) | **FINAL** | 2 |
+| `PI-2026-RSA-001-A Media and Online Sentiment` | Rev C (neighborhood scope) | **FINAL** | 2 |
+
+The Brief was further out of date than previously recorded. It was still on **Rev B**, meaning it carried citywide and statewide material that had been removed from the main assessment two revisions earlier, plus the superseded 36 composite. Rebuilt from scratch on the FINAL evidence base in plain language: verdict banner, four finding cards, distance-sorted event table, run section, and an action checklist.
+
+Annex A rebuilt on the same basis. Its Section 01 now carries all **six** dating failures in one table rather than three, since that has become the annex's most load-bearing finding.
+
+### Verification across the set
+
+- All three carry the FINAL marker; no Rev A/B/C/D markers remain in any deliverable
+- 0 em-dashes, 0 banned words in all three
+- Only surviving mention of removed citywide material is the deliberate Elm Creek exclusion note in the main assessment (Section 08), confirmed by line inspection
+- Page budget: main 3pp, Brief 2pp, Annex 2pp
+
+### Note on publication
+
+The set is **not** published as a hosted artifact. It carries a private residential address, a named individual's daily movement pattern, and CONFIDENTIAL / ATTORNEY WORK PRODUCT markings. That combination is the owner's call to make, not a default. The files are the deliverable; a link can be produced on request.
